@@ -5,6 +5,7 @@ import SignUpPage from './views/SignUpPage';
 import LoginPage from './views/LoginPage';
 import Navbar from './components/Navbar';
 import {useUser} from "./context/UserContext";
+import Logout from './views/Logout';
 
 
 
@@ -34,6 +35,7 @@ export default function App() {
         <Route path='/' element={<Home />} />
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/login' element={<LoginPage logMeIn={logMeIn} user={user}/>} />
+        <Route path='/logout' element={<Logout logMeOut={logMeOut}/>} />
       </Routes>
     </>
   );
