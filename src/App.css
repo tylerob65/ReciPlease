@@ -32,7 +32,18 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.titleText {
+  font-family: 'Pacifico', cursive;
+  text-align: center;
+  color: #ffb206;
+}
+
+.titleTextPink {
+  color: #ff066f;
 }

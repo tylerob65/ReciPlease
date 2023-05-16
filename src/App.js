@@ -1,25 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Home from './views/Home';
+import SignUpPage from './views/SignUpPage';
+import LoginPage from './views/LoginPage';
+import Navbar from './components/Navbar';
+import {useUser} from "./context/UserContext";
 
-function App() {
+
+
+export default function App() {
+
+  const { user, setUser } = useUser()
+
+  const logMeIn = (user, rememberMe) => {
+    setUser(user)
+    console.log("LoggingIn",user)
+    if (rememberMe) {
+      localStorage.setItem("ReciPlease_user",JSON.stringify(user))
+      console.log("Wanted to remember")
+    }
+  }
+
+  const logMeOut = () => {
+    setUser({})
+    localStorage.removeItem("ReciPlease_user")
+    console.log("LoggedOut")
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar logMeOut={logMeOut}/>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/signup' element={<SignUpPage />} />
+        <Route path='/login' element={<LoginPage logMeIn={logMeIn} user={user}/>} />
+      </Routes>
+    </>
   );
 }
-
-export default App;
