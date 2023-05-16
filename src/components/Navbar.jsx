@@ -12,10 +12,25 @@ import MenuItem from '@mui/material/MenuItem';
 import { UserContext } from '../context/UserContext';
 import NavLogo from './NavLogo';
 import { Link, useNavigate } from 'react-router-dom';
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 
 // TODO Replace items below with the actual routes
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+
+const pagesLoggedIn = [
+    ["Page1", "/"],
+    ["Page2", "/"],
+    ["Page3", "/"],
+]
+const pagesLoggedOut = [
+    ["Sign Up", "/signup"],
+    ["Login", "/login"],
+]
+const settings = [
+    ['Profile', "/"],
+    ['Account', "/"],
+    ['Logout', "/logout"]
+];
 
 export default function Navbar({ logMeOut }) {
     const [anchorElNav, setAnchorElNav] = useState(null);
@@ -33,12 +48,15 @@ export default function Navbar({ logMeOut }) {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
+    const handleCloseNavMenu = (url) => {
         setAnchorElNav(null);
+        if (url) { navigate(url); }
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (url) => {
         setAnchorElUser(null);
+        if (url) { navigate(url); }
+
     };
 
     return (
@@ -48,7 +66,7 @@ export default function Navbar({ logMeOut }) {
                     <Toolbar disableGutters>
                         <Link style={{ textDecoration: "none" }} to="/">
                             <Typography
-                                variant="h5"
+                                variant="div"
                                 noWrap
                                 onClick={() => navigate("/")}
                                 sx={{
@@ -61,7 +79,7 @@ export default function Navbar({ logMeOut }) {
                                     textDecoration: 'none',
                                 }}
                             >
-                                <NavLogo/>
+                                <NavLogo />
                             </Typography>
                         </Link>
 
@@ -90,86 +108,88 @@ export default function Navbar({ logMeOut }) {
                                     horizontal: 'left',
                                 }}
                                 open={Boolean(anchorElNav)}
-                                onClose={handleCloseNavMenu}
+                                onClose={()=>handleCloseNavMenu()}
                                 sx={{
                                     display: { xs: 'block', md: 'none' },
                                 }}
                             >
-                                {pages.map((page) => (
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{page}</Typography>
+                                {(Object.keys(user).length ? pagesLoggedIn : pagesLoggedOut).map(([pageTitle, url]) => (
+                                    <MenuItem key={pageTitle} onClick={() => handleCloseNavMenu(url)}>
+                                        <Typography textAlign="center">{pageTitle}</Typography>
                                     </MenuItem>
                                 ))}
                             </Menu>
                         </Box>
-                            <Typography
-                                variant="h5"
-                                noWrap
-                                onClick = {()=>navigate("/")}
-                                sx={{
-                                    mr: 2,
-                                    display: { xs: 'flex', md: 'none' },
-                                    flexGrow: 1,
-                                    fontFamily: 'monospace',
-                                    fontWeight: 700,
-                                    letterSpacing: '.3rem',
-                                    cursor:'pointer',
-                                    textDecoration: 'none',
-                                }}
-                            >
-                                <NavLogo />
-                            </Typography>
+                        <Typography
+                            variant="div"
+                            noWrap
+                            onClick={() => navigate("/")}
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'flex', md: 'none' },
+                                flexGrow: 1,
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                cursor: 'pointer',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            <NavLogo />
+                        </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page) => (
+                            {(Object.keys(user).length ? pagesLoggedIn : pagesLoggedOut).map(([pageTitle, url]) => (
                                 <Button
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
+                                    key={pageTitle}
+                                    onClick={() => handleCloseNavMenu(url)}
                                     sx={{ my: 2, color: 'black', display: 'block' }}
                                 >
-                                    {page}
+                                    {pageTitle}
                                 </Button>
                             ))}
                         </Box>
-                        <Button onClick={logMeOut}>LogoutTest</Button>
 
-                        <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                sx={{ mt: '45px' }}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                            >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </Box>
+                        {
+                        Object.keys(user).length ?
+                            <Box sx={{ flexGrow: 0 }}>
+                                <Tooltip title="Open settings">
+                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                        <RestaurantMenuIcon color="secondary" sx={{ width: "40px", height: "40px", p: 0}} />
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu
+                                    sx={{ mt: '45px' }}
+                                    id="menu-appbar"
+                                    anchorEl={anchorElUser}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorElUser)}
+                                    onClose={() => handleCloseUserMenu()}
+                                >
+                                    {settings.map(([settingTitle, url]) => (
+                                        <MenuItem key={settingTitle} onClick={() => handleCloseUserMenu(url)}>
+                                            <Typography textAlign="center">{settingTitle}</Typography>
+                                        </MenuItem>
+                                    ))}
+                                </Menu>
+                            </Box>
+
+                            :
+                            <Box sx={{ flexGrow: 0 }}>
+                                <RestaurantMenuIcon sx={{ width: "40px", height: "40px", p: 0, color: "white" }} />
+                            </Box>
+                        }
                     </Toolbar>
                 </Container>
             </AppBar>
             <br />
         </>
-
-
-
-
-
     )
 }

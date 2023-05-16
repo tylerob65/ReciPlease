@@ -52,7 +52,7 @@ export default function SignUpPage() {
     }
 
     return (
-        <Container>
+        <Container maxWidth="sm">
             <Typography variant="h1" color="primary">Sign Up</Typography>
             <br />
             <form
@@ -123,7 +123,7 @@ export default function SignUpPage() {
                 <FormControlLabel
                     control={<Checkbox checked={checked} id="staySignedIn" color="secondary" onChange={handleChecked}/>}
                 label="Stay Signed In?"
-                sx={{alignSelf:"start"}}
+                // sx={{alignSelf:"start"}}
                 />
                 <br />
                 <Button type='submit' variant='contained' sx={{ width: "200px" }}>Submit</Button>

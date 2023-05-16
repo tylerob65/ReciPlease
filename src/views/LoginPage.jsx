@@ -47,11 +47,11 @@ export default function LoginPage({ logMeIn }) {
 
     }
     return (
-        <Container>
+        <Container maxWidth="sm">
             <Typography variant="h1" color="primary">Login</Typography>
             <br />
             <form
-                style={{ display: 'flex', flexDirection: 'column' }}
+                style={{ display: 'flex', flexDirection: 'column', alignItems:'center' }}
                 onSubmit={handleSubmit}>
                 <TextField
                     required
@@ -60,6 +60,7 @@ export default function LoginPage({ logMeIn }) {
                     variant='outlined'
                     name='username'
                     color="secondary"
+                    sx={{ width: "100%" }}
                 />
                 <br />
                 <TextField
@@ -70,15 +71,16 @@ export default function LoginPage({ logMeIn }) {
                     name='password'
                     type='password'
                     color="secondary"
+                    sx={{ width: "100%" }}
                 />
                 <br />
                 <FormControlLabel
                     control={<Checkbox checked={checked} id="staySignedIn" color="secondary" onChange={handleChecked} />}
                     label="Stay Signed In?"
-                    sx={{ alignSelf: "start" }}
+                    // sx={{ alignSelf: "start" }}
                 />
                 <br />
-                <Button type='submit' variant='contained'>Submit</Button>
+                <Button type='submit' variant='contained' sx={{ width: "200px" }}>Submit</Button>
                 hi{JSON.stringify(user)}
             </form>
         </Container>
