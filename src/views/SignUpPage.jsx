@@ -2,9 +2,11 @@ import React, {useState} from 'react'
 import { Button, Checkbox, Container, TextField, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import {FormControlLabel} from '@mui/material'
+import { useMessage } from '../context/MessageContext'
 
 export default function SignUpPage() {
     const navigate = useNavigate()
+    const {addMessage} = useMessage()
 
     const [checked,setChecked] = useState(true)
 
@@ -47,6 +49,9 @@ export default function SignUpPage() {
             // Show success msg
             console.log(data)
             navigate('/')
+        } else {
+            addMessage(data.message,data.severity)
+
         }
 
     }

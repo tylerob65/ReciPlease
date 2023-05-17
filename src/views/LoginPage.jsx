@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Checkbox, Container, FormControlLabel, TextField, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../context/UserContext'
+import { useMessage } from '../context/MessageContext'
 
 export default function LoginPage({ logMeIn }) {
     const navigate = useNavigate()
 
     let { user } = useUser()
+    let { messages, addMessage } = useMessage()
 
     const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
 
@@ -42,16 +44,16 @@ export default function LoginPage({ logMeIn }) {
             // TODO create logMeIn
             logMeIn(myUserInfo, rememberMe)
             navigate('/')
+        } else {
+            addMessage(data.message, data.severity)
         }
-
-
     }
     return (
         <Container maxWidth="sm">
             <Typography variant="h1" color="primary">Login</Typography>
             <br />
             <form
-                style={{ display: 'flex', flexDirection: 'column', alignItems:'center' }}
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
                 onSubmit={handleSubmit}>
                 <TextField
                     required
@@ -77,11 +79,10 @@ export default function LoginPage({ logMeIn }) {
                 <FormControlLabel
                     control={<Checkbox checked={checked} id="staySignedIn" color="secondary" onChange={handleChecked} />}
                     label="Stay Signed In?"
-                    // sx={{ alignSelf: "start" }}
+                // sx={{ alignSelf: "start" }}
                 />
                 <br />
                 <Button type='submit' variant='contained' sx={{ width: "200px" }}>Submit</Button>
-                hi{JSON.stringify(user)}
             </form>
         </Container>
     )
