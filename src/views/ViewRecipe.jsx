@@ -1,6 +1,14 @@
-import { Box, Container, Divider, Grid, Typography } from '@mui/material'
-import { List, ListItem } from '@mui/material'
+import { Box, Chip, Container, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
+import { Link as MuiLink, List, ListItem } from '@mui/material'
 import React from 'react'
+import { Fragment } from 'react'
+import { themeOptions } from '../themes/primaryTheme'
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+// import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 export default function ViewRecipe() {
 
@@ -26,76 +34,175 @@ export default function ViewRecipe() {
         "2 cloves garlic, halved",
     ]
 
+    const showSteps = () => {
+        return (
+            <>
+                <div style={{ textAlign: "center" }}>
+                    <Typography variant='h5' color="secondary">Instructions</Typography>
+                </div>
+                {steps.map((step, i) => (
+                    <Fragment key={i}>
+                        {/* <Typography sx={{fontWeight:"bold", mt:1}} variant="h6"> */}
+                        <Typography sx={{ mt: 1 }} variant="h6">
+                            Step {i + 1}
+                        </Typography>
+                        <Typography>
+                            {step}
+                        </Typography>
+                    </Fragment>
+                )
+                )}
+            </>
+        )
+    }
+
     const showIngredients = () => {
         return (
-            <Box width="400px">
+            <Grid item>
                 <List>
-                    <ListItem>
+                    <ListItem sx={{ justifyContent: "center" }}>
                         <Typography variant="h5" color="secondary">Ingredients</Typography>
                     </ListItem>
-                    
+
                     {ingredients.map((ingredient, i) =>
                     (
-                        <>
-                        {i !== 0 ? <Divider variant="middle" light/> : ""}
-                        <ListItem>{ingredient}</ListItem>
-                        </>
+                        <Fragment key={i}>
+                            {i !== 0 ? <Divider variant="middle" light /> : ""}
+                            <ListItem>{ingredient}</ListItem>
+                        </Fragment>
                     )
                     )}
                 </List>
-            </Box>
+            </Grid>
         )
     }
+    // export const themeOptions = {
+    //     palette: {
+    //         type: 'light',
+    //         mode: 'light',
+    //         primary: {
+    //             main: '#ffb206',
+    //         },
+    //         secondary: {
+    //             main: '#ff066f',
+    //         },
+    //         lightprimary: {
+    //             main: '#fff4dd',
+    //         },
+    //         lightsecondary: {
+    //             main: '#fff1f7',
+    //         }
+    console.log(themeOptions)
+    console.log(themeOptions.palette.lightsecondary.main)
 
-    const showSteps = () => {
-        return (
-            <Box maxWidth="700px">
-                {/* <Typography variant='h5' color="secondary" sx={{ fontWeight: "bold" }}>Instructions</Typography> */}
-                <Typography variant='h5' color="secondary">Instructions</Typography>
-                {steps.map((step,i) => (
-                    <>
-                    {/* <Typography sx={{fontWeight:"bold", mt:1}} variant="h6"> */}
-                    <Typography sx={{mt:1}} variant="h6">
-                        Step {i+1}
-                    </Typography>
-                    <Typography>
-                        {step}
-                    </Typography>
 
-                    </>
-                )
-
-                )}
-                
-            </Box>
-
-        )
-    }
 
     return (
         <Container>
-            <Grid
-                container
-                direction="column"
-                alignItems="center"
-                variant="outlined"
+            <Paper elevation={4}
+                sx={{ alignItems: "center", flexDirection: "column", display: "flex" }}
             >
+                {/* <Box alignSelf="flex-start" p={2}> */}
+                {/* <Container sx={{bgcolor:"primary"}}> */}
+                {/* <Box bgcolor="primary.main" p="auto" m="auto"> */}
 
-                <Typography variant="h2" color="primary">Bruschetta</Typography>
-                <br/>
-                <img
-                    src="https://hips.hearstapps.com/hmg-prod/images/bruschetta-secondary-645d03e6daed2.jpg?crop=1xw:1xh;center,top&resize=980:*" alt=""
-                    style={{ width: "300px", height: "300px", objectFit: "contain" }}
+                {/* <Box> */}
 
-                />
+                {/* </Box> */}
+                    {/* <Typography color="red">Hi</Typography> */}
+                {/* </Box> */}
+                {/* </Container> */}
+
+                {/* <Box width="100%" sx={{ background: `linear-gradient(to top, white, 30% , ${themeOptions.palette.lightsecondary.main});`}}> */}
+                {/* <Box width="100%" sx={{ background: `linear-gradient(to top, white, 30% , ${themeOptions.palette.lightsecondary.main});`}}> */}
+                {/* <Box width="100%" bgcolor="lightprimary.main"> */}
+                <Box width="100%">
+                    <Box p={1}>
+                        <Stack direction="row" spacing={1} alignItems="center">
+                            <Chip icon={<FavoriteIcon />} size="small" label="Liked" color="secondary" variant="outlined" onClick={() => setTimeout(2)} />
+                            <Chip icon={<CheckCircleIcon />} size="small" label="Followed" color="info" variant="outlined" onClick={() => setTimeout(2)} />
+                            
+                            {/* <Typography>Posted By: </Typography> */}
+                        </Stack>
+                    </Box>
+                    {/* <Box p={1}>
+                        <Stack direction="row" spacing={1} alignItems="center">
+                            <Chip icon={<FavoriteBorderIcon />} size="small" label="Like" variant="outlined" onClick={() => setTimeout(2)} />
+                            <Chip icon={<BookmarkBorderIcon />} size="small" label="Followed" variant="outlined" onClick={() => setTimeout(2)} />
+                            <Typography>Posted by Tim</Typography>
+                        </Stack>
+                    </Box> */}
+                </Box>
                 
-                {showIngredients()}
+
+                {/* <Container>
+                    <Typography>Hi</Typography>
+                </Container> */}
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                {/* 
+                
+                Below is the main content. Above is just the chips
+                
+                */}
+                
+                
+                <Typography variant="h2" color="primary" sx={{ textAlign: "center" }}>Bruschetta</Typography>
+                <Typography mt={-1}><small>Shared By: <em>Person Username</em ></small></Typography>
+
+
+                <br />
+                <Grid
+                    container
+                    // direction="row-reverse"
+                    alignItems="center"
+                    justifyContent="space-around"
+                    alignContent="center"
+                    maxWidth="md"
+                    px={4}
+                >
+                    <Grid item>
+                        <img
+                            src="https://hips.hearstapps.com/hmg-prod/images/bruschetta-secondary-645d03e6daed2.jpg?crop=1xw:1xh;center,top&resize=980:*" alt=""
+                            style={{ height: "300px", objectFit: "contain" }}
+                        />
+                    </Grid>
+                    {/* <div sx={{flexGrow:1}}/> */}
+                    {showIngredients()}
+                </Grid>
                 <br />
                 <br />
-                
-                {showSteps()}
-                <p>https://www.delish.com/cooking/recipe-ideas/a27409128/best-bruschetta-tomato-recipe/</p>
-            </Grid>
+                <Grid container justifyContent="center" px={4}>
+                    <Box maxWidth="md" flexGrow="1">
+                        {showSteps()}
+                        <br />
+                        <br/>
+                        <Typography color="secondary">Source</Typography>
+                        <MuiLink
+                        href="https://www.delish.com/cooking/recipe-ideas/a27409128/best-bruschetta-tomato-recipe/"
+                        target="_blank"
+                        rel="noopener"
+                        >
+                            <Typography>https://www.delish.com/cooking/recipe-ideas/a27409128/best-bruschetta-tomato-recipe/</Typography>
+                        </MuiLink>
+                        
+                        <br />
+                    </Box>
+                    <br />
+                </Grid>
+            </Paper>
+            <br />
         </Container>
     )
 }

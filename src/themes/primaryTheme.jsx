@@ -10,6 +10,13 @@ export const themeOptions = {
         secondary: {
             main: '#ff066f',
         },
+        lightprimary: {
+            main:'#fff4dd',
+        },
+        lightsecondary: {
+            main:'#fff1f7',
+        }
+
     },
     typography: {
         h1: {

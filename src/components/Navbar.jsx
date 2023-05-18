@@ -61,7 +61,7 @@ export default function Navbar({ logMeOut }) {
 
     return (
         <>
-            <AppBar position="static" sx={{ backgroundColor: "#fff4dd", color: "black" }}>
+            <AppBar position="static" sx={{ backgroundColor: "lightsecondary.main", color: "black" }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <Link style={{ textDecoration: "none" }} to="/">
@@ -142,7 +142,7 @@ export default function Navbar({ logMeOut }) {
                                 <Button
                                     key={pageTitle}
                                     onClick={() => handleCloseNavMenu(url)}
-                                    sx={{ my: 2, color: 'black', display: 'block' }}
+                                    sx={{ my: 2, color: 'black', display: 'block', textTransform:'none' }}
                                 >
                                     {pageTitle}
                                 </Button>
