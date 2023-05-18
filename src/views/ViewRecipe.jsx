@@ -7,23 +7,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import Test from "../components/Test"
+
 // import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
-// Delete later
-import SvgIcon from '@mui/material/SvgIcon'
-
-// Keep this just for one commit as record of my svg exploration
-function NewSvgTest(props) 
-{
-    return (
-        <SvgIcon {...props}>
-            <path d="M4.04655 3.47258L20.1295 3.47258L20.1295 20.5274L4.04655 20.5274L4.04655 3.47258Z" fill="#ffffff" fill-rule="nonzero" opacity="1" stroke="#000000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="0.957303" />
-            <path d="M12.088 20.5274L12.088 3.47258" fill="none" opacity="1" stroke="#000000" stroke-linecap="butt" stroke-linejoin="round" stroke-width="1" />
-        </SvgIcon>
-    )
-}
 
 
 export default function ViewRecipe() {
@@ -115,15 +101,6 @@ export default function ViewRecipe() {
 
     return (
         <Container>
-            
-            {/* Keep this for one commit as record of my SVG exploration */}
-            <NewSvgTest/>
-            <Button endIcon={<Test />}>Hi</Button>
-            <Button endIcon={<NewSvgTest />}>Hi</Button>
-            <Button endIcon={<FavoriteIcon />}>Hi</Button>
-            
-
-            <Test/>
             <Paper elevation={4}
                 sx={{ alignItems: "center", flexDirection: "column", display: "flex" }}
             >
