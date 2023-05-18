@@ -18,8 +18,8 @@ import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 
 
 const pagesLoggedIn = [
-    ["ViewRecipe", "/viewrecipe"],
-    ["Page2", "/"],
+    ["View Recipe", "/viewrecipe"],
+    ["Edit Recipe", "/editrecipe"],
     ["Page3", "/"],
 ]
 const pagesLoggedOut = [
