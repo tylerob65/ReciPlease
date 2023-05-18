@@ -18,7 +18,7 @@ import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 
 
 const pagesLoggedIn = [
-    ["Page1", "/"],
+    ["ViewRecipe", "/viewrecipe"],
     ["Page2", "/"],
     ["Page3", "/"],
 ]
@@ -61,7 +61,7 @@ export default function Navbar({ logMeOut }) {
 
     return (
         <>
-            <AppBar position="static" sx={{ backgroundColor: "white", color: "black" }}>
+            <AppBar position="static" sx={{ backgroundColor: "#fff4dd", color: "black" }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <Link style={{ textDecoration: "none" }} to="/">

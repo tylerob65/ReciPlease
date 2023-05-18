@@ -9,6 +9,7 @@ import Logout from './views/Logout';
 import Message from './components/Message';
 import { useMessage } from './context/MessageContext';
 import { Container, Stack } from '@mui/material';
+import ViewRecipe from './views/ViewRecipe';
 
 
 export default function App() {
@@ -66,6 +67,7 @@ export default function App() {
       {showMessages()}
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/viewrecipe' element={<ViewRecipe />} />
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/login' element={<LoginPage logMeIn={logMeIn} user={user}/>} />
         <Route path='/logout' element={<Logout logMeOut={logMeOut}/>} />

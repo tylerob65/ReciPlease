@@ -16,12 +16,12 @@ const getUserFromLocalStorage = () => {
 const UserContextProvider = ({ children }) => {
     const [user, setUser] = useState(getUserFromLocalStorage)
 
-    const myValue = {
+    const providedValues = {
         user: user,
         setUser: setUser,
     }
     return (
-        <UserContext.Provider value={myValue}>
+        <UserContext.Provider value={providedValues}>
             {children}
         </UserContext.Provider>
     )
