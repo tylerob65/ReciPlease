@@ -17,7 +17,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const pagesLoggedIn = [
     ["View Recipe", "/viewrecipe"],
-    ["Edit Recipe", "/editrecipe"],
+    ["Add Recipe", "/addrecipe"],
     ["Page3", "/"],
 ]
 const pagesLoggedOut = [
