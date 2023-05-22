@@ -12,6 +12,7 @@ import { Container, Stack } from '@mui/material';
 import ViewRecipe from './views/ViewRecipe';
 import ViewRecipeDemo from './views/ViewRecipeDemo';
 import AddRecipe from './views/AddRecipe';
+import ModifyRecipe from './views/ModifyRecipe';
 
 
 export default function App() {
@@ -72,6 +73,7 @@ export default function App() {
         <Route path='/viewrecipedemo' element={<ViewRecipeDemo />} />
         <Route path='/viewrecipe/:recipeID' element={<ViewRecipe />} />
         <Route path='/addrecipe' element={<AddRecipe />} />
+        <Route path='/modifyrecipe/:recipeID' element={<ModifyRecipe />} />
         <Route path='/signup' element={<SignUpPage logMeIn={logMeIn}/>} />
         <Route path='/login' element={<LoginPage logMeIn={logMeIn} user={user}/>} />
         <Route path='/logout' element={<Logout logMeOut={logMeOut}/>} />

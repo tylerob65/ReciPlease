@@ -7,15 +7,17 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-
-// import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { useUser } from '../context/UserContext'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 
 export default function ViewRecipe() {
 
     const { recipeID } = useParams()
+
+    const {user} = useUser()
+    const navigate = useNavigate()
 
     const [recipeInfo,setRecipeInfo] = useState({})
     let foundRecipe = Object.keys(recipeInfo).length !== 0
@@ -123,6 +125,12 @@ export default function ViewRecipe() {
         getRecipeInfo()
     }, [])
 
+    const handleEditRecipe = async() => {
+        navigate("/modifyrecipe/" + recipeID)
+        return
+    }
+
+
     return (
         <Container>
             <Paper elevation={4}
@@ -204,6 +212,23 @@ export default function ViewRecipe() {
                     </Grid>
                     </>
                 }
+
+                {/* Show Edit Recipe Button, but just if the user owns the recipe */}
+                {user.id!==recipeInfo.owner_id?
+                "They don't match"
+                :
+                <>
+                <Button
+                variant="outlined"
+                color="secondary"
+                onClick={handleEditRecipe}
+                >
+                    Edit Recipe
+                </Button>
+                <br />
+                </>
+                }
+            
             </Paper>
             <br />
         </Container>
