@@ -19,10 +19,13 @@ export default function ModifyRecipe() {
 
   const [instructionsList, setInstructionsList] = useState([""])
   const [ingredientsList, setIngredientsList] = useState([""])
-  // const [otherRecipeInfo,setOtherRecipeInfo] = useState({
-  //   "recipe_title":"",
-  //   "image_url":"",
-  // })
+  const [otherRecipeInfo,setOtherRecipeInfo] = useState({
+    "recipe_title":"",
+    "image_url":"",
+    "source_url":"",
+    "servings":"",
+    "cook_time":"",
+  })
 
   const handleInstructionChange = (e, i) => {
     const newInstructionsList = [...instructionsList]
@@ -34,6 +37,12 @@ export default function ModifyRecipe() {
     const newIngredientsList = [...ingredientsList]
     newIngredientsList[i] = e.target.value
     setIngredientsList(newIngredientsList)
+  }
+
+  const handleOtherRecipeInfoChange = (e,category) => {
+    const newOtherRecipeInfo = {...otherRecipeInfo}
+    newOtherRecipeInfo[category] = e.target.value
+    setOtherRecipeInfo(newOtherRecipeInfo)
   }
 
   const handleAddInstruction = () => {
@@ -118,8 +127,14 @@ export default function ModifyRecipe() {
     setIngredientsList(data.recipeInfo.ingredients)
     setInstructionsList(data.recipeInfo.instructions)
     console.log(data)
-    // Still need to figure out how to add the rest of the info
-    
+    const newOtherRecipeInfo = {
+      "recipe_title": data.recipeInfo.title||"",
+      "image_url": data.recipeInfo.image_url || "",
+      "source_url": data.recipeInfo.source_url || "",
+      "servings": data.recipeInfo.servings || "",
+      "cook_time": data.recipeInfo.cook_timw || "",
+    }
+    setOtherRecipeInfo(newOtherRecipeInfo)
   }
 
   useEffect(() => {
@@ -149,6 +164,8 @@ export default function ModifyRecipe() {
           <Typography color="primary" variant="h4" mb={1}>Recipe Basics</Typography>
           <TextField label="Recipe Title"
             id="recipe_title"
+            value={otherRecipeInfo["recipe_title"]}
+            onChange={(e)=>handleOtherRecipeInfoChange(e,"recipe_title")}
             fullWidth
             required
           />
@@ -156,6 +173,8 @@ export default function ModifyRecipe() {
 
           <TextField label="Image URL"
             id="image_url"
+            value={otherRecipeInfo["image_url"]}
+            onChange={(e) => handleOtherRecipeInfoChange(e, "image_url")}
             required
             fullWidth
           />
@@ -163,6 +182,8 @@ export default function ModifyRecipe() {
           <br /><br />
 
           <TextField label="Source URL"
+            value={otherRecipeInfo["source_url"]}
+            onChange={(e) => handleOtherRecipeInfoChange(e, "source_url")}
             id="source_url"
             fullWidth
           />
@@ -172,6 +193,8 @@ export default function ModifyRecipe() {
           <Box>
             <TextField
               label="Servings"
+              value={otherRecipeInfo["servings"]}
+              onChange={(e) => handleOtherRecipeInfoChange(e, "servings")}
               id="servings"
               type="number"
               sx={{ width: "200px", mr: 2, mb: 2 }}
@@ -179,6 +202,8 @@ export default function ModifyRecipe() {
 
             <TextField
               label="Cook Time"
+              value={otherRecipeInfo["cook_time"]}
+              onChange={(e) => handleOtherRecipeInfoChange(e, "cook_time")}
               id="cook_time"
               type="number"
               sx={{ width: "200px" }}
