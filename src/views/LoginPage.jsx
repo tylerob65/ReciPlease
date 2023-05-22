@@ -41,7 +41,6 @@ export default function LoginPage({ logMeIn }) {
         if (data.status === 'ok') {
             const myUserInfo = data.data
             console.log(data)
-            // TODO create logMeIn
             logMeIn(myUserInfo, rememberMe)
             navigate('/')
         } else {

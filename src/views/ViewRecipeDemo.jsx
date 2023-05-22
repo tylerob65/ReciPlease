@@ -1,7 +1,7 @@
 import { Box, Button, Chip, Container, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
 import { Link as MuiLink, List, ListItem } from '@mui/material'
-import React, { useState } from 'react'
-import { Fragment, useEffect} from 'react'
+import React from 'react'
+import { Fragment } from 'react'
 import { themeOptions } from '../themes/primaryTheme'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -10,18 +10,9 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 // import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { useParams } from 'react-router-dom'
 
 
-export default function ViewRecipe() {
-
-    const { recipeID } = useParams()
-
-    const [recipeInfo,setRecipeInfo] = useState({})
-    let foundRecipe = Object.keys(recipeInfo).length !== 0
-    
-    const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
-    // console.log("recipe id",recipeID)
+export default function ViewRecipeDemo() {
 
     const steps = [
         "In a medium skillet over medium-low heat, heat oil. Add garlic and cook, stirring occasionally, until lightly golden, 2 to 4 minutes. Let cool.",
@@ -51,7 +42,7 @@ export default function ViewRecipe() {
                 <div style={{ textAlign: "center" }}>
                     <Typography variant='h5' color="secondary">Instructions</Typography>
                 </div>
-                {recipeInfo.instructions.map((step, i) => (
+                {steps.map((step, i) => (
                     <Fragment key={i}>
                         {/* <Typography sx={{fontWeight:"bold", mt:1}} variant="h6"> */}
                         <Typography sx={{ mt: 1 }} variant="h6">
@@ -61,7 +52,8 @@ export default function ViewRecipe() {
                             {step}
                         </Typography>
                     </Fragment>
-                ))}
+                )
+                )}
             </>
         )
     }
@@ -74,7 +66,7 @@ export default function ViewRecipe() {
                         <Typography variant="h5" color="secondary">Ingredients</Typography>
                     </ListItem>
 
-                    {recipeInfo.ingredients.map((ingredient, i) =>
+                    {ingredients.map((ingredient, i) =>
                     (
                         <Fragment key={i}>
                             {i !== 0 ? <Divider variant="middle" light /> : ""}
@@ -102,46 +94,39 @@ export default function ViewRecipe() {
     //         lightsecondary: {
     //             main: '#fff1f7',
     //         }
-    // console.log(themeOptions)
-    // console.log(themeOptions.palette.lightsecondary.main)
+    console.log(themeOptions)
+    console.log(themeOptions.palette.lightsecondary.main)
 
-    const getRecipeInfo = async () => {
-        const url = REACT_APP_BACKEND_URL_BASE + "/viewrecipe/" + recipeID
-        const res = await fetch(url)
-        const data = await res.json()
-        console.log("recipeinfo",recipeInfo)
-        console.log("foundrecipe",foundRecipe)
-        if (data.status === "ok") {
-            const newRecipeInfo = data.recipeInfo
-            console.log(newRecipeInfo)
-            setRecipeInfo(newRecipeInfo)
-        }
-    }
 
-    // Starts trying to load recipe info when page loads
-    useEffect(() => {
-        getRecipeInfo()
-    }, [])
 
     return (
         <Container>
             <Paper elevation={4}
                 sx={{ alignItems: "center", flexDirection: "column", display: "flex" }}
             >
-                
-                {!foundRecipe ?
-                    "No Recipe Found"
-                    :
-                    <>
-                    <Box width="100%">
-                        <Box p={1}>
-                            <Stack direction="row" spacing={1} alignItems="center">
-                                <Chip icon={<FavoriteIcon />} size="small" label="Liked" color="secondary" variant="outlined" onClick={() => setTimeout(2)} />
-                                <Chip icon={<CheckCircleIcon />} size="small" label="Followed" color="info" variant="outlined" onClick={() => setTimeout(2)} />
+                {/* <Box alignSelf="flex-start" p={2}> */}
+                {/* <Container sx={{bgcolor:"primary"}}> */}
+                {/* <Box bgcolor="primary.main" p="auto" m="auto"> */}
 
-                                {/* <Typography>Posted By: </Typography> */}
-                            </Stack>
-                        </Box>
+                {/* <Box> */}
+
+                {/* </Box> */}
+                {/* <Typography color="red">Hi</Typography> */}
+                {/* </Box> */}
+                {/* </Container> */}
+
+                {/* <Box width="100%" sx={{ background: `linear-gradient(to top, white, 30% , ${themeOptions.palette.lightsecondary.main});`}}> */}
+                {/* <Box width="100%" sx={{ background: `linear-gradient(to top, white, 30% , ${themeOptions.palette.lightsecondary.main});`}}> */}
+                {/* <Box width="100%" bgcolor="lightprimary.main"> */}
+                <Box width="100%">
+                    <Box p={1}>
+                        <Stack direction="row" spacing={1} alignItems="center">
+                            <Chip icon={<FavoriteIcon />} size="small" label="Liked" color="secondary" variant="outlined" onClick={() => setTimeout(2)} />
+                            <Chip icon={<CheckCircleIcon />} size="small" label="Followed" color="info" variant="outlined" onClick={() => setTimeout(2)} />
+
+                            {/* <Typography>Posted By: </Typography> */}
+                        </Stack>
+                    </Box>
                     {/* <Box p={1}>
                         <Stack direction="row" spacing={1} alignItems="center">
                             <Chip icon={<FavoriteBorderIcon />} size="small" label="Like" variant="outlined" onClick={() => setTimeout(2)} />
@@ -149,61 +134,76 @@ export default function ViewRecipe() {
                             <Typography>Posted by Tim</Typography>
                         </Stack>
                     </Box> */}
-                    </Box>
+                </Box>
 
 
-                    {/* 
-            
-                    Below is the main content. Above is just the chips
-            
-                    */}
-
-                    <Typography variant="h2" color="primary" sx={{ textAlign: "center" }}>{recipeInfo.title}</Typography>
-                    <Typography mt={-1}><small>Shared By: <em>Person Username</em ></small></Typography>
+                {/* <Container>
+                    <Typography>Hi</Typography>
+                </Container> */}
 
 
-                    <br />
-                    <Grid
-                        container
-                        // direction="row-reverse"
-                        alignItems="center"
-                        justifyContent="space-around"
-                        alignContent="center"
-                        maxWidth="md"
-                        px={4}
-                    >
-                        <Grid item>
-                            <img
-                                src={recipeInfo.image_url} alt=""
-                                style={{ height: "300px", objectFit: "contain" }}
-                            />
-                        </Grid>
-                        {/* <div sx={{flexGrow:1}}/> */}
-                        {showIngredients()}
+
+
+
+
+
+
+
+
+
+
+
+                {/* 
+                
+                Below is the main content. Above is just the chips
+                
+                */}
+
+
+                <Typography variant="h2" color="primary" sx={{ textAlign: "center" }}>Bruschetta</Typography>
+                <Typography mt={-1}><small>Shared By: <em>Person Username</em ></small></Typography>
+
+
+                <br />
+                DEMO
+                <Grid
+                    container
+                    // direction="row-reverse"
+                    alignItems="center"
+                    justifyContent="space-around"
+                    alignContent="center"
+                    maxWidth="md"
+                    px={4}
+                >
+                    <Grid item>
+                        <img
+                            src="https://hips.hearstapps.com/hmg-prod/images/bruschetta-secondary-645d03e6daed2.jpg?crop=1xw:1xh;center,top&resize=980:*" alt=""
+                            style={{ height: "300px", objectFit: "contain" }}
+                        />
                     </Grid>
-                    <br />
-                    <br />
-
-                    <Grid container justifyContent="center" px={4}>
-                        <Box maxWidth="md" flexGrow="1">
-                            {showSteps()}
-                            <br />
-                            <br />
-                            <Typography color="secondary">Source</Typography>
-                            <MuiLink
-                                href="https://www.delish.com/cooking/recipe-ideas/a27409128/best-bruschetta-tomato-recipe/"
-                                target="_blank"
-                                rel="noopener"
-                            >
-                                <Typography>{recipeInfo.source_url}</Typography>
-                            </MuiLink>
-
-                            <br />
-                        </Box>
+                    {/* <div sx={{flexGrow:1}}/> */}
+                    {showIngredients()}
+                </Grid>
+                <br />
+                <br />
+                <Grid container justifyContent="center" px={4}>
+                    <Box maxWidth="md" flexGrow="1">
+                        {showSteps()}
                         <br />
-                    </Grid>
-                    </>
-                }
+                        <br />
+                        <Typography color="secondary">Source</Typography>
+                        <MuiLink
+                            href="https://www.delish.com/cooking/recipe-ideas/a27409128/best-bruschetta-tomato-recipe/"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <Typography>https://www.delish.com/cooking/recipe-ideas/a27409128/best-bruschetta-tomato-recipe/</Typography>
+                        </MuiLink>
+
+                        <br />
+                    </Box>
+                    <br />
+                </Grid>
             </Paper>
             <br />
         </Container>

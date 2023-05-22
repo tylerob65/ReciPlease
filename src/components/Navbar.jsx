@@ -16,7 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 // TODO Replace items below with the actual routes
 
 const pagesLoggedIn = [
-    ["View Recipe", "/viewrecipe"],
+    ["View Recipe Demo", "/viewrecipedemo"],
     ["Add Recipe", "/addrecipe"],
     ["Page3", "/"],
 ]

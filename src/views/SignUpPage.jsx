@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import {FormControlLabel} from '@mui/material'
 import { useMessage } from '../context/MessageContext'
 
-export default function SignUpPage() {
+export default function SignUpPage({logMeIn}) {
     const navigate = useNavigate()
     const {addMessage} = useMessage()
 
@@ -46,14 +46,15 @@ export default function SignUpPage() {
         const data = await res.json();
 
         if (data.status === 'ok') {
-            // Show success msg
+            // TODO Show success msg
+            const myUserInfo = data.data
+            const rememberMe = e.target.staySignedIn.checked;
             console.log(data)
+            logMeIn(myUserInfo, rememberMe)
             navigate('/')
         } else {
             addMessage(data.message,data.severity)
-
         }
-
     }
 
     return (

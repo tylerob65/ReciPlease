@@ -10,6 +10,7 @@ import Message from './components/Message';
 import { useMessage } from './context/MessageContext';
 import { Container, Stack } from '@mui/material';
 import ViewRecipe from './views/ViewRecipe';
+import ViewRecipeDemo from './views/ViewRecipeDemo';
 import AddRecipe from './views/AddRecipe';
 
 
@@ -68,9 +69,10 @@ export default function App() {
       {showMessages()}
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/viewrecipe' element={<ViewRecipe />} />
+        <Route path='/viewrecipedemo' element={<ViewRecipeDemo />} />
+        <Route path='/viewrecipe/:recipeID' element={<ViewRecipe />} />
         <Route path='/addrecipe' element={<AddRecipe />} />
-        <Route path='/signup' element={<SignUpPage />} />
+        <Route path='/signup' element={<SignUpPage logMeIn={logMeIn}/>} />
         <Route path='/login' element={<LoginPage logMeIn={logMeIn} user={user}/>} />
         <Route path='/logout' element={<Logout logMeOut={logMeOut}/>} />
       </Routes>
