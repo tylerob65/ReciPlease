@@ -62,7 +62,7 @@ export default function MyProfile() {
                     {recipeInfo.title}
                   </Link>
                 </TableCell>
-                <TableCell>Some Like Amount</TableCell>
+                <TableCell>Likes: {recipeInfo.like_count}</TableCell>
               </TableRow>
             ))}
           </TableBody>
