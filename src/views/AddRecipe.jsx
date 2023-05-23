@@ -5,12 +5,15 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { useMessage } from '../context/MessageContext'
 import { useUser } from '../context/UserContext';
 import InputAdornment from '@mui/material/InputAdornment';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function AddRecipe() {
 
   // let { addMessage } = useMessage()
   const { user } = useUser()
+
+  const navigate = useNavigate()
 
   const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
   // const REACT_APP_FRONTEND_URL_BASE = process.env.REACT_APP_FRONTEND_URL_BASE
@@ -151,7 +154,11 @@ export default function AddRecipe() {
 
     const res = await fetch(url, options);
     const data = await res.json();
-    console.log(data)
+    console.log("Console.logged data...",data)
+    console.log("Console.logged data.recipe_id...",data.recipe_id)
+
+    navigate(`/viewrecipe/${data.data.recipe_id}`)
+    // TODO deal with errors if not success
     
     
     }

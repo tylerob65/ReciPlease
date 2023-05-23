@@ -34,7 +34,7 @@ export default function ViewRecipe() {
         "Arrange bread on a platter. Spoon tomatoes on top of bread just before serving.",
     ]
 
-    const ingredients = [
+    const ingredients = [ 
         "1 / 4 c. extra - virgin olive oil",
         "2 cloves garlic, thinly sliced",
         "4 large tomatoes, finely chopped",
@@ -167,7 +167,7 @@ export default function ViewRecipe() {
                     */}
 
                     <Typography variant="h2" color="primary" sx={{ textAlign: "center" }}>{recipeInfo.title}</Typography>
-                    <Typography mt={-1}><small>Shared By: <em>Person Username</em ></small></Typography>
+                    <Typography mt={-1}><small>Shared By: <em>{recipeInfo.owner_username}</em ></small></Typography>
 
 
                     <br />
@@ -180,10 +180,11 @@ export default function ViewRecipe() {
                         maxWidth="md"
                         px={4}
                     >
-                        <Grid item>
+                        <Grid item sx={{display:"flex", justifyContent:"center"}}>
                             <img
                                 src={recipeInfo.image_url} alt=""
-                                style={{ height: "300px", objectFit: "contain" }}
+                                style={{ maxHeight: "300px", width:"min(300px,90%)",objectFit: "contain" }}
+                                // style={{ maxHeight: "300px", width:"300px",objectFit: "contain" }}
                             />
                         </Grid>
                         {/* <div sx={{flexGrow:1}}/> */}

@@ -104,9 +104,46 @@ export default function ModifyRecipe() {
     ))
   )
 
-  // TODO come back to
   const handleSubmit = async (e) => {
-    return
+    e.preventDefault();
+
+    console.log(e)
+    // Step is unnecessary
+    const ingredients = [...ingredientsList]
+    const instructions = [...instructionsList]
+    console.log(ingredients)
+    console.log(instructions)
+
+    const body = {
+      recipeID:recipeID,
+      recipe_title: otherRecipeInfo.recipe_title,
+      image_url: otherRecipeInfo.image_url,
+      source_url: otherRecipeInfo.source_url || null,
+      servings: otherRecipeInfo.servings || null,
+      cook_time: otherRecipeInfo.cook_time || null,
+      ingredients: [...ingredientsList],
+      instructions: [...instructionsList],
+    }
+    console.log("Print Body")
+    console.log(body)
+
+    const url = REACT_APP_BACKEND_URL_BASE + "/updaterecipe"
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": 'application/json',
+        Authorization: `Bearer ${user.apitoken}`
+      },
+      body: JSON.stringify(body),
+    }
+    console.log(options)
+
+    const res = await fetch(url, options);
+    const data = await res.json();
+    if (data.status === "ok") {
+      navigate(`/viewrecipe/${recipeID}`)
+    }
 
   }
 
@@ -132,7 +169,7 @@ export default function ModifyRecipe() {
       "image_url": data.recipeInfo.image_url || "",
       "source_url": data.recipeInfo.source_url || "",
       "servings": data.recipeInfo.servings || "",
-      "cook_time": data.recipeInfo.cook_timw || "",
+      "cook_time": data.recipeInfo.cook_time || "",
     }
     setOtherRecipeInfo(newOtherRecipeInfo)
   }
@@ -140,7 +177,6 @@ export default function ModifyRecipe() {
   useEffect(() => {
     loadRecipe()
   },[])
-
 
 
   return (
@@ -214,35 +250,6 @@ export default function ModifyRecipe() {
             />
           </Box>
 
-          {/* IN PROGRESS ATTEMPT TO MESS AROUND WITH GRID */}
-
-          {/* <Grid container spacing={2} columns ={{xs:4,md:12}} justifyContent="center">
-            <Grid item xs={4} md={6} textAlign="center">
-              <TextField
-                label="Servings"
-                id="servings"
-                type="number"
-              // sx={{width:"200px"}}
-              />
-            </Grid>
-
-            <Grid item xs={4} md={6} textAlign="center">
-
-              <TextField
-                label="Cook Time"
-                id="cooktime"
-                type="number"
-                // sx={{ width: "200px" }}
-                sx={{flexGrow:1}}
-                InputProps={{
-                  endAdornment: <InputAdornment position='end'>mins</InputAdornment>
-
-                }}
-              />
-            </Grid>
-          </Grid> */}
-
-
           <Divider sx={{ my: 2 }} />
 
           {/* 
@@ -287,7 +294,7 @@ export default function ModifyRecipe() {
 
           <Box textAlign="center">
             <Button type="submit" variant="outlined" color="success">
-              Add Recipe
+              Update Recipe
             </Button>
           </Box>
 
