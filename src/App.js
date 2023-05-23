@@ -13,6 +13,7 @@ import ViewRecipe from './views/ViewRecipe';
 import ViewRecipeDemo from './views/ViewRecipeDemo';
 import AddRecipe from './views/AddRecipe';
 import ModifyRecipe from './views/ModifyRecipe';
+import MyProfile from './views/MyProfile';
 
 
 export default function App() {
@@ -73,6 +74,7 @@ export default function App() {
         <Route path='/viewrecipedemo' element={<ViewRecipeDemo />} />
         <Route path='/viewrecipe/:recipeID' element={<ViewRecipe />} />
         <Route path='/addrecipe' element={<AddRecipe />} />
+        <Route path='/profile' element={<MyProfile />} />
         <Route path='/modifyrecipe/:recipeID' element={<ModifyRecipe />} />
         <Route path='/signup' element={<SignUpPage logMeIn={logMeIn}/>} />
         <Route path='/login' element={<LoginPage logMeIn={logMeIn} user={user}/>} />

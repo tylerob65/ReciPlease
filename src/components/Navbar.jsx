@@ -16,17 +16,17 @@ import { Link, useNavigate } from 'react-router-dom';
 // TODO Replace items below with the actual routes
 
 const pagesLoggedIn = [
-    ["View Recipe Demo", "/viewrecipedemo"],
+    ["Home", "/"],
     ["Add Recipe", "/addrecipe"],
-    ["Page3", "/"],
+    ["View Recipe Demo", "/viewrecipedemo"],
 ]
 const pagesLoggedOut = [
+    ["Home", "/"],
     ["Sign Up", "/signup"],
     ["Login", "/login"],
 ]
 const settings = [
-    ['Profile', "/"],
-    ['Account', "/"],
+    ['Profile', "/profile"],
     ['Logout', "/logout"]
 ];
 

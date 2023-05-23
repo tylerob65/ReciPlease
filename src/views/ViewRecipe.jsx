@@ -133,6 +133,7 @@ export default function ViewRecipe() {
 
     return (
         <Container>
+            <br/>
             <Paper elevation={4}
                 sx={{ alignItems: "center", flexDirection: "column", display: "flex" }}
             >

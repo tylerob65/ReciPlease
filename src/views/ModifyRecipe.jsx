@@ -17,6 +17,9 @@ export default function ModifyRecipe() {
 
   const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
 
+  const maxIngredients = 17
+  const maxInstructions = 17
+
   const [instructionsList, setInstructionsList] = useState([""])
   const [ingredientsList, setIngredientsList] = useState([""])
   const [otherRecipeInfo,setOtherRecipeInfo] = useState({
@@ -261,7 +264,7 @@ export default function ModifyRecipe() {
 
           {/* Ingredients Buttons */}
           <Box textAlign="center">
-            <Button sx={{ m: 1, width: "170px" }} variant="outlined" color="success" startIcon={<AddIcon />} onClick={handleAddIngredient} disabled={ingredientsList.length > 14}>
+            <Button sx={{ m: 1, width: "170px" }} variant="outlined" color="success" startIcon={<AddIcon />} onClick={handleAddIngredient} disabled={ingredientsList.length >= maxIngredients}>
               Add New Step
             </Button>
 
@@ -281,7 +284,7 @@ export default function ModifyRecipe() {
 
           {/* Instructions Buttons */}
           <Box textAlign="center">
-            <Button sx={{ m: 1, width: "170px" }} variant="outlined" color="success" startIcon={<AddIcon />} onClick={handleAddInstruction} disabled={instructionsList.length > 14}>
+            <Button sx={{ m: 1, width: "170px" }} variant="outlined" color="success" startIcon={<AddIcon />} onClick={handleAddInstruction} disabled={instructionsList.length >= maxInstructions}>
               Add New Step
             </Button>
 
