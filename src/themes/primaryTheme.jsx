@@ -15,6 +15,10 @@ export const themeOptions = {
         },
         lightsecondary: {
             main:'#fff1f7',
+        },
+        themeblack: {
+            main:'#000000',
+            dark:'#000000',
         }
 
     },

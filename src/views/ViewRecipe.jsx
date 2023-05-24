@@ -24,28 +24,6 @@ export default function ViewRecipe() {
     
     const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
     // console.log("recipe id",recipeID)
-
-    const steps = [
-        "In a medium skillet over medium-low heat, heat oil. Add garlic and cook, stirring occasionally, until lightly golden, 2 to 4 minutes. Let cool.",
-        "Meanwhile, set a large strainer or colander over a bowl.Add tomatoes and toss with 1 / 2 teaspoon salt.Let sit 5 minutes, then transfer tomatoes to a large bowl.",
-        "Add basil, vinegar, red pepper, and remaining 1 / 2 teaspoon salt to bowl with tomatoes and toss to combine.Add garlic and oil from skillet and toss again to combine.Let marinate at least 30 minutes or up to 2 days.",
-        "Preheat oven to 400°.Brush bread on both sides with oil and arrange on large baking sheet. ",
-        "Toast bread, turning halfway through, until dried and golden brown, 10 to 15 minutes.Let cool 5 minutes, then rub one side of bread with halved garlic cloves.",
-        "Arrange bread on a platter. Spoon tomatoes on top of bread just before serving.",
-    ]
-
-    const ingredients = [ 
-        "1 / 4 c. extra - virgin olive oil",
-        "2 cloves garlic, thinly sliced",
-        "4 large tomatoes, finely chopped",
-        "1 tsp. kosher salt, divided",
-        "1 / 4 c. thinly sliced fresh basil",
-        "2 tbsp. balsamic vinegar ",
-        "Pinch of crushed red pepper flakes",
-        '1 large baguette, sliced 1 / 4" thick on the bias',
-        "Extra - virgin olive oil, for brushing",
-        "2 cloves garlic, halved",
-    ]
     
 
     const showSteps = () => {
@@ -126,34 +104,6 @@ export default function ViewRecipe() {
         getRecipeInfo()
     }, [])
 
-    // TODO delete if use LikeButton Component
-    const showLikeButton = () => {
-        // If user is not logged in, don't show like button
-        if (!user.apitoken) {
-            return (<></>)
-        }
-        // If haven't found recipe yet, don't show like button
-        if (!foundRecipe) {
-            return (<></>)
-        }
-        // If the recipe belongs to the user, don't show the like button
-        if (recipeInfo.owner_id === user.id) {
-            return (<></>)
-        }
-
-        // get like status
-        // Set the like status
-
-
-        
-
-
-        
-        return (
-        <Chip icon={<FavoriteIcon />} size="small" label="Liked" color="secondary" variant="outlined" onClick={() => setTimeout(2)} />
-        )
-    }
-
     const handleEditRecipe = async() => {
         navigate("/modifyrecipe/" + recipeID)
         return
@@ -175,11 +125,12 @@ export default function ViewRecipe() {
                         <Box p={1}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <LikeButton recipeID={recipeID} recipeInfo={recipeInfo}/>
+                                {/* Followed Icon - Will use later */}
                                 <Chip icon={<CheckCircleIcon />} size="small" label="Followed" color="info" variant="outlined" onClick={() => setTimeout(2)} />
-
-                                {/* <Typography>Posted By: </Typography> */}
                             </Stack>
                         </Box>
+                    
+                    {/* Follow Icon, will use later  */}
                     {/* <Box p={1}>
                         <Stack direction="row" spacing={1} alignItems="center">
                             <Chip icon={<FavoriteBorderIcon />} size="small" label="Like" variant="outlined" onClick={() => setTimeout(2)} />
@@ -228,11 +179,12 @@ export default function ViewRecipe() {
                             {showSteps()}
                             <br />
                             <br />
-                            <Typography color="secondary">Source</Typography>
+                            <Typography>Source</Typography>
                             <MuiLink
-                                href="https://www.delish.com/cooking/recipe-ideas/a27409128/best-bruschetta-tomato-recipe/"
+                                href={recipeInfo.source_url}
                                 target="_blank"
                                 rel="noopener"
+                                color="themeblack.main"
                             >
                                 <Typography>{recipeInfo.source_url}</Typography>
                             </MuiLink>

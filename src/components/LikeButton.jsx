@@ -96,7 +96,7 @@ export default function LikeButton({recipeID, recipeInfo}) {
   if (!recipeIsLiked) {
     return (
       <>
-      <Chip icon={<FavoriteBorderIcon />} size="small" label="Like" variant="outlined" onClick={likeRecipe}/>
+      <Chip icon={<FavoriteBorderIcon />} size="small" label="Like" variant="outlined" onClick={likeRecipe_original}/>
       </>
     )
   }
