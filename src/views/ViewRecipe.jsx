@@ -10,7 +10,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { useUser } from '../context/UserContext'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useNavigate, useParams } from 'react-router-dom'
-
+import LikeButton from '../components/LikeButton'
 
 export default function ViewRecipe() {
 
@@ -46,6 +46,7 @@ export default function ViewRecipe() {
         "Extra - virgin olive oil, for brushing",
         "2 cloves garlic, halved",
     ]
+    
 
     const showSteps = () => {
         return (
@@ -125,6 +126,34 @@ export default function ViewRecipe() {
         getRecipeInfo()
     }, [])
 
+    // TODO delete if use LikeButton Component
+    const showLikeButton = () => {
+        // If user is not logged in, don't show like button
+        if (!user.apitoken) {
+            return (<></>)
+        }
+        // If haven't found recipe yet, don't show like button
+        if (!foundRecipe) {
+            return (<></>)
+        }
+        // If the recipe belongs to the user, don't show the like button
+        if (recipeInfo.owner_id === user.id) {
+            return (<></>)
+        }
+
+        // get like status
+        // Set the like status
+
+
+        
+
+
+        
+        return (
+        <Chip icon={<FavoriteIcon />} size="small" label="Liked" color="secondary" variant="outlined" onClick={() => setTimeout(2)} />
+        )
+    }
+
     const handleEditRecipe = async() => {
         navigate("/modifyrecipe/" + recipeID)
         return
@@ -145,7 +174,7 @@ export default function ViewRecipe() {
                     <Box width="100%">
                         <Box p={1}>
                             <Stack direction="row" spacing={1} alignItems="center">
-                                <Chip icon={<FavoriteIcon />} size="small" label="Liked" color="secondary" variant="outlined" onClick={() => setTimeout(2)} />
+                                <LikeButton recipeID={recipeID} recipeInfo={recipeInfo}/>
                                 <Chip icon={<CheckCircleIcon />} size="small" label="Followed" color="info" variant="outlined" onClick={() => setTimeout(2)} />
 
                                 {/* <Typography>Posted By: </Typography> */}
@@ -217,7 +246,7 @@ export default function ViewRecipe() {
 
                 {/* Show Edit Recipe Button, but just if the user owns the recipe */}
                 {user.id!==recipeInfo.owner_id?
-                "They don't match"
+                <></>
                 :
                 <>
                 <Button
