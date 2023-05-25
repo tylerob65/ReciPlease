@@ -8,12 +8,20 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Pagination from '@mui/material/Pagination';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
     const [recipes,setRecipes] = useState([])
     const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
     const viewRecipeUrl = REACT_APP_BACKEND_URL_BASE + "/viewrecipe/"
+
+    const[page, setPage] = React.useState(1);
+    const handlePageChange = (event, value) => {
+        setPage(value);
+    };
+
+    
 
 
     const getRecipes = async () => {
@@ -63,8 +71,10 @@ export default function Home() {
                         ))}
                     </TableBody>
                 </Table>
-
             </TableContainer>
+
+            <Pagination count={10} page={page} onChange={handlePageChange} />
+            {/* <Pagination count={10} page={1}/> */}
             <br />
 
             {/* <Box

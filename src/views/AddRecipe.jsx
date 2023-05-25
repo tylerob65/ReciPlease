@@ -18,8 +18,8 @@ export default function AddRecipe() {
   const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
   // const REACT_APP_FRONTEND_URL_BASE = process.env.REACT_APP_FRONTEND_URL_BASE
 
-  const maxIngredients = 17
-  const maxInstructions = 17
+  const maxIngredients = 20
+  const maxInstructions = 20
 
 
   const [instructionsList, setInstructionsList] = useState(["", "", "", "", ""])

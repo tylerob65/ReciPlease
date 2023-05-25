@@ -17,8 +17,8 @@ export default function ModifyRecipe() {
 
   const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
 
-  const maxIngredients = 17
-  const maxInstructions = 17
+  const maxIngredients = 20
+  const maxInstructions = 20
 
   const [instructionsList, setInstructionsList] = useState([""])
   const [ingredientsList, setIngredientsList] = useState([""])
