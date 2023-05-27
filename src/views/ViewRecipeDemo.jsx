@@ -1,18 +1,82 @@
 import { Box, Button, Chip, Container, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
 import { Link as MuiLink, List, ListItem } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { Fragment } from 'react'
 import { themeOptions } from '../themes/primaryTheme'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import Collapse from '@mui/material/Collapse';
 
 // import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 
 export default function ViewRecipeDemo() {
+
+    const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
+    const [visibleNutritionalInfo, setVisibleNutritionalInfo] = useState(false)
+    const [nutritionalInfo,setNutritionalInfo] = useState({})
+    let haveNutritionalInfo = Object.keys(nutritionalInfo).length === 0
+
+    const getNutritionalInfo = async () => {
+        const url = REACT_APP_BACKEND_URL_BASE + "/test15"
+        const res = await fetch(url)
+        const data = await res.json()
+        // console.log("recipeinfo", recipeInfo)
+        // console.log("foundrecipe", foundRecipe)
+        // if (data.status === "ok") {
+            const nutritionalInfo = data
+            console.log(nutritionalInfo)
+            showNutritionalInfo()
+            // setRecipeInfo(newRecipeInfo)
+        // }
+        
+        return "hello"
+    }
+
+    const showNutritionalInfo = () => {
+        // If nutritional info is visible, make it not visible
+        if (visibleNutritionalInfo) {
+            setVisibleNutritionalInfo(false)
+            return
+        }
+        
+        // If we have the nutritional info already, show it
+        if (Object.keys(nutritionalInfo).length >= 1) {
+            setVisibleNutritionalInfo(true)
+        }
+        
+
+        
+    }
+
+    const handleShowNutritionalInfo = async () => {
+        // If nutritional info is visible, make it not visible
+        if (visibleNutritionalInfo) {
+            setVisibleNutritionalInfo(false)
+            return
+        }
+
+        // If we have the nutritional info already, show it
+        if (Object.keys(nutritionalInfo).length >= 1) {
+            setVisibleNutritionalInfo(true)
+            return
+        }
+        const url = REACT_APP_BACKEND_URL_BASE + "/test15"
+        const res = await fetch(url)
+        const data = await res.json()
+        
+        setNutritionalInfo(data)
+        console.log(data)
+        setVisibleNutritionalInfo(true)
+    }
+
+    // We have button that we want to show nutritional info for
+    // Button has an on click
+    // When we click button run handleNutritionalInfoButton
+    // handleNutritionalInfoButton
 
     const steps = [
         "In a medium skillet over medium-low heat, heat oil. Add garlic and cook, stirring occasionally, until lightly golden, 2 to 4 minutes. Let cool.",
@@ -204,6 +268,21 @@ export default function ViewRecipeDemo() {
                     </Box>
                     <br />
                 </Grid>
+
+                {/* Experiementing with collapse */}
+                
+                <Button
+                onClick={handleShowNutritionalInfo}
+                >
+                    {/* {visibleNutritionalInfo?"Hide":"Show"} Nutritional Breakdown */}
+                    {Object.keys(nutritionalInfo).length === 0 ?"Hide":"Show"} Nutritional Breakdown
+                </Button>
+                <Collapse in={visibleNutritionalInfo}>
+                {showNutritionalInfo()}
+                </Collapse>
+
+
+
             </Paper>
             <br />
         </Container>
