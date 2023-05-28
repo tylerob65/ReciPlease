@@ -11,6 +11,9 @@ import { useUser } from '../context/UserContext'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useNavigate, useParams } from 'react-router-dom'
 import LikeButton from '../components/LikeButton'
+import Collapse from '@mui/material/Collapse';
+import NutritionalInfo from '../components/NutritionalInfo'
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function ViewRecipe() {
 
@@ -18,6 +21,7 @@ export default function ViewRecipe() {
 
     const {user} = useUser()
     const navigate = useNavigate()
+    const [visibleNutritionalInfo,setVisibleNutritionalInfo] = useState(false)
 
     const [recipeInfo,setRecipeInfo] = useState({})
     let foundRecipe = Object.keys(recipeInfo).length !== 0
@@ -108,6 +112,46 @@ export default function ViewRecipe() {
         navigate("/modifyrecipe/" + recipeID)
         return
     }
+    
+    const showNutritionalInfo = () => {
+        
+        return (
+            <>
+            {recipeInfo.nutritional_info?
+                <NutritionalInfo nutritionalInfo={recipeInfo.nutritional_info}/>
+                :
+                <>    
+                </>
+            }
+            </>
+        )
+    }
+
+    const handleShowNutritionalInfo = async () => {
+        if (visibleNutritionalInfo) {
+            setVisibleNutritionalInfo(false)
+            console.log("Nutritional Info was true and set to false")
+            return
+        }
+
+        if (recipeInfo.nutritional_info) {
+            setVisibleNutritionalInfo(true)
+            console.log("There was nutritional info, and now setting shown to true")
+            return
+        }
+
+        const url = REACT_APP_BACKEND_URL_BASE + "/getnutritionalinfo/" + recipeID
+        const res = await fetch(url)
+        const data = await res.json()
+        if (data.status === "ok") {
+            const newRecipeInfo = {
+                ...recipeInfo,
+                nutritional_info:data.data,
+            }
+            setRecipeInfo(newRecipeInfo)
+            setVisibleNutritionalInfo(true)
+        }        
+    }
 
 
     return (
@@ -118,7 +162,9 @@ export default function ViewRecipe() {
             >
                 
                 {!foundRecipe ?
-                    "No Recipe Found"
+                    <Box width="100%" height="300px" sx={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+                        <CircularProgress/>
+                    </Box>
                     :
                     <>
                     <Box width="100%">
@@ -126,7 +172,10 @@ export default function ViewRecipe() {
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <LikeButton recipeID={recipeID} recipeInfo={recipeInfo}/>
                                 {/* Followed Icon - Will use later */}
-                                <Chip icon={<CheckCircleIcon />} size="small" label="Followed" color="info" variant="outlined" onClick={() => setTimeout(2)} />
+                                
+                                {/* <Chip size="small" label="from spoonacular" color="info" variant="outlined" onClick={() => setTimeout(2)} /> */}
+
+                                {/* <Chip icon={<CheckCircleIcon />} size="small" label="Followed" color="info" variant="outlined" onClick={() => setTimeout(2)} /> */}
                             </Stack>
                         </Box>
                     
@@ -211,6 +260,19 @@ export default function ViewRecipe() {
                 <br />
                 </>
                 }
+                <Button
+                    variant="outlined"
+                    onClick={handleShowNutritionalInfo}
+                    color="secondary"
+                >
+                    {visibleNutritionalInfo?"Hide":"Show"} Nutritional Info
+                </Button>
+                <br />
+                <Collapse in={visibleNutritionalInfo}>
+                    {showNutritionalInfo()}
+                    
+                </Collapse>
+                <br />
             
             </Paper>
             <br />

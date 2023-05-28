@@ -275,7 +275,7 @@ export default function ViewRecipeDemo() {
                 onClick={handleShowNutritionalInfo}
                 >
                     {/* {visibleNutritionalInfo?"Hide":"Show"} Nutritional Breakdown */}
-                    {Object.keys(nutritionalInfo).length === 0 ?"Hide":"Show"} Nutritional Breakdown
+                    {Object.keys(nutritionalInfo).length === 0  ?"Hide":"Show"} Nutritional Breakdown
                 </Button>
                 <Collapse in={visibleNutritionalInfo}>
                 {showNutritionalInfo()}
