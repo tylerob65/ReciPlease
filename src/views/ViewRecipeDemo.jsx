@@ -201,22 +201,6 @@ export default function ViewRecipeDemo() {
                 </Box>
 
 
-                {/* <Container>
-                    <Typography>Hi</Typography>
-                </Container> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
                 {/* 
                 
                 Below is the main content. Above is just the chips
