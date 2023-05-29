@@ -3,8 +3,9 @@ import { Card } from '@mui/material'
 import { Box, Button, Chip, Container, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
 import SpoonacularChip from './SpoonacularChip'
 
-export default function NutritionalInfo({ nutritionalInfo }) {
+export default function NutritionalInfo({ nutritionalInfo, servings }) {
   const one_dec = (val) => (Math.round(val * 10) / 10)
+  const serves = servings || 1
 
   const makeCardGroup = (primaryOrSecondary) => {
     const nutrition = nutritionalInfo[primaryOrSecondary]
@@ -36,6 +37,7 @@ export default function NutritionalInfo({ nutritionalInfo }) {
   return (
     <Box p={2} sx={{ border: "1px solid black",minWidth:"300px" }}>
       <Typography variant="h5"><b>Nutritional Facts</b></Typography>
+      <Typography><small><b>Per Serving</b> (serves {serves})</small></Typography>
       {/* <Typography><small><a style={{ color: "black" }} href="https://spoonacular.com/food-api" target="_blank">
         data from spoonacular api
       </a></small></Typography> */}

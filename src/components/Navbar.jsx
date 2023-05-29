@@ -18,10 +18,12 @@ import { Link, useNavigate } from 'react-router-dom';
 const pagesLoggedIn = [
     ["Home", "/"],
     ["Add Recipe", "/addrecipe"],
+    ["Random Recipe", "/viewrandomrecipe"],
     ["View Recipe Demo", "/viewrecipedemo"],
 ]
 const pagesLoggedOut = [
     ["Home", "/"],
+    ["Random Recipe", "/viewrandomrecipe"],
     ["Sign Up", "/signup"],
     ["Login", "/login"],
 ]

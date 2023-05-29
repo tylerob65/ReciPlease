@@ -48,7 +48,7 @@ export default function RecipeContent({recipeInfo}) {
     <>
       {/* Recipe Name, Shared By, Servings, and Cook Time */}
       <Typography variant="h2" mb={1} color="primary" sx={{ textAlign: "center" }}>{recipeInfo.title}</Typography>
-      <Typography mt={-1}><small>Shared By: <em>{recipeInfo.owner_username}</em ></small></Typography>
+      {recipeInfo.owner_username ? <Typography mt={-1}><small>Shared By: <em>{recipeInfo.owner_username}</em ></small></Typography> :<></>}
       {recipeInfo.servings ? <Typography mt={-1}><small>Servings: <em>{recipeInfo.servings}</em ></small></Typography> : <></>}
       {recipeInfo.cook_time ? <Typography mt={-1}><small>Cook Time: <em>{recipeInfo.cook_time} mins</em ></small></Typography> : <></>}
       <br />

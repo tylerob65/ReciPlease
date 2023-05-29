@@ -14,6 +14,7 @@ import ViewRecipeDemo from './views/ViewRecipeDemo';
 import AddRecipe from './views/AddRecipe';
 import ModifyRecipe from './views/ModifyRecipe';
 import MyProfile from './views/MyProfile';
+import RandomRecipe from './views/RandomRecipe';
 
 
 export default function App() {
@@ -72,7 +73,9 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/viewrecipedemo' element={<ViewRecipeDemo />} />
+        <Route path='/viewrandomrecipedemo' element={<ViewRecipeDemo />} />
         <Route path='/viewrecipe/:recipeID' element={<ViewRecipe />} />
+        <Route path='/viewrandomrecipe' element={<RandomRecipe />} />
         <Route path='/addrecipe' element={<AddRecipe />} />
         <Route path='/profile' element={<MyProfile />} />
         <Route path='/modifyrecipe/:recipeID' element={<ModifyRecipe />} />

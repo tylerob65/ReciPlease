@@ -1,6 +1,7 @@
-import { Box, Button, Chip, Container, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
-import { Link as MuiLink, List, ListItem } from '@mui/material'
 import React, { useState } from 'react'
+import { Box, Button, Chip, Container, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
+import { useMessage } from '../context/MessageContext'
+import { Link as MuiLink, List, ListItem } from '@mui/material'
 import { Fragment, useEffect } from 'react'
 import { themeOptions } from '../themes/primaryTheme'
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -17,49 +18,46 @@ import CircularProgress from '@mui/material/CircularProgress';
 import SpoonacularChip from '../components/SpoonacularChip';
 import RecipeContent from '../components/RecipeContent'
 
-export default function ViewRecipe() {
-
-  const { recipeID } = useParams()
+export default function RandomRecipe() {
   const { user } = useUser()
   const navigate = useNavigate()
+  let { messages, addMessage } = useMessage()
 
   const [visibleNutritionalInfo, setVisibleNutritionalInfo] = useState(false)
+
   const [recipeInfo, setRecipeInfo] = useState({})
   let foundRecipe = Object.keys(recipeInfo).length !== 0
-
   const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
 
-  const getRecipeInfo = async () => {
-    const url = REACT_APP_BACKEND_URL_BASE + "/viewrecipe/" + recipeID
+  const getRandomRecipeInfo = async () => {
+    const url = REACT_APP_BACKEND_URL_BASE + "/getrandomrecipe"
     const res = await fetch(url)
     const data = await res.json()
-    console.log("recipeinfo", recipeInfo)
-    console.log("foundrecipe", foundRecipe)
-    if (data.status === "ok") {
-      const newRecipeInfo = data.recipeInfo
-      console.log(newRecipeInfo)
-      setRecipeInfo(newRecipeInfo)
+    console.log("ran get recipe")
+    // console.log("data")
+    // console.log(data)
+    // console.log("data.data")
+    // console.log(data.data)
+    if (data.message === "recipe already in database") {
+      addMessage("Random recipe was already in database", "success")
+      navigate("/viewrecipe/" + data.data.recipe_id)
     }
-  }
 
-  // Starts trying to load recipe info when page loads
-  useEffect(() => {
-    getRecipeInfo()
-  }, [])
-
-  const handleEditRecipe = async () => {
-    navigate("/modifyrecipe/" + recipeID)
-    return
+    if (data.status === "ok") {
+      setRecipeInfo(data.data)
+      console.log(data.data)
+      return
+    }
+    addMessage(data.message)
   }
 
   const showNutritionalInfo = () => {
-
     return (
       <>
         {recipeInfo.nutritional_info ?
           <NutritionalInfo
-            nutritionalInfo={recipeInfo.nutritional_info}
-            servings={recipeInfo.servings}
+          nutritionalInfo={recipeInfo.nutritional_info}
+          servings={recipeInfo.servings}
           />
           :
           <>
@@ -82,9 +80,11 @@ export default function ViewRecipe() {
       return
     }
 
-    const url = REACT_APP_BACKEND_URL_BASE + "/getnutritionalinfo/" + recipeID
+    const url = REACT_APP_BACKEND_URL_BASE + "/getnutritionalinfospoonacular/" + recipeInfo.spoonacular_id
     const res = await fetch(url)
     const data = await res.json()
+    console.log("data")
+    console.log(data)
     if (data.status === "ok") {
       const newRecipeInfo = {
         ...recipeInfo,
@@ -94,6 +94,21 @@ export default function ViewRecipe() {
       setVisibleNutritionalInfo(true)
     }
   }
+
+  const handleSaveToReciPlease = async () => {
+    const url = REACT_APP_BACKEND_URL_BASE + "/addspoonacularrecipetodb/" + recipeInfo.spoonacular_id
+    const res = await fetch(url)
+    const data = await res.json()
+
+    if (data.status === "ok") {
+      addMessage("Recipe successfully saved to ReciPlease","success")
+      navigate("/viewrecipe/" + data.data.recipe_id)
+    }
+  }
+
+  useEffect(() => {
+    getRandomRecipeInfo()
+  }, [])
 
   return (
     <Container>
@@ -106,6 +121,7 @@ export default function ViewRecipe() {
           <Box width="100%" height="300px" sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
             <CircularProgress color="secondary" />
           </Box>
+
           :
           <>
             {/* Shows once recipe info is found */}
@@ -114,7 +130,6 @@ export default function ViewRecipe() {
             <Box width="100%">
               <Box p={1}>
                 <Stack direction="row" spacing={1} alignItems="center">
-                  <LikeButton recipeID={recipeID} recipeInfo={recipeInfo} />
                   {recipeInfo.spoonacular_id ?
                     <SpoonacularChip />
                     :
@@ -125,27 +140,27 @@ export default function ViewRecipe() {
             </Box>
 
             {/* This is what displays most recipe content */}
-            <RecipeContent recipeInfo={recipeInfo}/>
+            <RecipeContent recipeInfo={recipeInfo} />
 
-            
           </>
         }
 
-        {/* Show Edit Recipe Button, but just if the user owns the recipe */}
-        {user.id !== recipeInfo.owner_id ?
-          <></>
-          :
+        {/* Show save recipe button, but only if user is logged in  */}
+        {user.id ?
           <>
             <Button
-              variant="outlined"
               color="secondary"
-              onClick={handleEditRecipe}
+              variant="outlined"
+              onClick={handleSaveToReciPlease}
             >
-              Edit Recipe
+              Save To ReciPlease
             </Button>
             <br />
           </>
+          :
+          <></>
         }
+
         <Button
           variant="outlined"
           onClick={handleShowNutritionalInfo}
