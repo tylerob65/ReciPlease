@@ -19,6 +19,7 @@ const pagesLoggedIn = [
     ["Home", "/"],
     ["Add Recipe", "/addrecipe"],
     ["Random Recipe", "/viewrandomrecipe"],
+    ["Ingredients Search", "/searchbyingredients"],
     ["View Recipe Demo", "/viewrecipedemo"],
 ]
 const pagesLoggedOut = [

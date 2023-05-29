@@ -11,6 +11,10 @@ import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
 import { Link } from 'react-router-dom';
 import LinearProgress from '@mui/material/LinearProgress';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 
 
 export default function Home() {
@@ -54,7 +58,14 @@ export default function Home() {
                 Welcome
             </Typography>
 
+            
+            
+            <br /><br />
+
+            {/* Most Liked Recipes Section */}
             <TableContainer elevation={4} component={Paper}>
+                <br />
+                <Typography variant='h3'>Most Liked Recipes</Typography>
                 <Table>
                     <TableHead>
                         <TableRow>
