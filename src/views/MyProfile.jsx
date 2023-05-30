@@ -9,10 +9,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Link } from 'react-router-dom';
+import UserMostLikedRecipes from '../components/UserMostLikedRecipes';
 
 export default function MyProfile() {
   const { user } = useUser()
-
+  console.log("user")
+  console.log(user)
   const [recipes, setRecipes] = useState([])
   const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
   // const viewRecipeUrl = REACT_APP_BACKEND_URL_BASE + "/viewrecipe/"
@@ -80,7 +82,10 @@ export default function MyProfile() {
       <Box textAlign="center">
         <Typography variant='h2'>{user.username}'s profile</Typography>
         <br />
+        <UserMostLikedRecipes userID={user.id}/>
+        <br />
         {showUsersRecipes()}
+        <br />
 
       </Box>
     </Container>
