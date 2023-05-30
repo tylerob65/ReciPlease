@@ -19,16 +19,16 @@ export default function SearchByIngredientsCard({recipe}) {
   
   const makeIngredientsCategories = () => {
     const ingredientCategories = [
-      ["Used", recipe.usedIngredients],
-      ["Missed", recipe.missedIngredients],
-      ["Unused", recipe.unusedIngredients],
+      ["Ingredients you have", recipe.usedIngredients],
+      ["Ingredients you need", recipe.missedIngredients],
+      ["Unused Ingredients", recipe.unusedIngredients],
     ]
     return (
       <>
         {
           ingredientCategories.map(([category, list]) => (
             <Typography key={category} variant="body2">
-              <b>{category} Ingredients: </b>
+              <b>{category}: </b>
               {list.length === 0 ?
                 <>None</>
                 :
@@ -42,7 +42,7 @@ export default function SearchByIngredientsCard({recipe}) {
   }
 
   return (
-    <Card sx={{ maxWidth: 300 }}>
+    <Card sx={{ maxWidth: 300,p:1 }} elevation={4}>
       <CardMedia
         component="img"
         height="140"
@@ -51,11 +51,18 @@ export default function SearchByIngredientsCard({recipe}) {
           objectFit: "contain",
         }}
       />
-      <CardContent>
+      <CardContent sx={{p:1}}>
         {/* Title */}
         <Typography variant="h6">{recipe.title}</Typography>
         {makeIngredientsCategories()}
+      
       </CardContent>
+      <CardActions disableSpacing={true}>
+        <Box width="100%" textAlign="center">
+          <Button color="secondary">View Recipe</Button>
+        </Box>
+        
+      </CardActions>
 
     </Card>
   )
