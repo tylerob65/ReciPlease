@@ -1,8 +1,14 @@
-import React, {Fragment} from 'react'
-import { Box, Button, Chip, Container, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
-import { Link as MuiLink, List, ListItem } from '@mui/material'
+import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom';
+import { Link as MuiLink } from '@mui/material'
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Typography from '@mui/material/Typography';
 
-export default function RecipeContent({recipeInfo}) {
+export default function RecipeContent({ recipeInfo }) {
   const showSteps = () => {
     return (
       <>
@@ -48,7 +54,14 @@ export default function RecipeContent({recipeInfo}) {
     <>
       {/* Recipe Name, Shared By, Servings, and Cook Time */}
       <Typography variant="h2" mb={1} color="primary" sx={{ textAlign: "center" }}>{recipeInfo.title}</Typography>
-      {recipeInfo.owner_username ? <Typography mt={-1}><small>Shared By: <em>{recipeInfo.owner_username}</em ></small></Typography> :<></>}
+      {recipeInfo.owner_username ?
+        <Typography mt={-1}><small>Shared By: <em>
+          <Link to={"/profile/" + recipeInfo.owner_id} style={{ color: "inherit" }}>
+            {recipeInfo.owner_username}
+          </Link>
+        </em ></small></Typography>
+        :
+        <></>}
       {recipeInfo.servings ? <Typography mt={-1}><small>Servings: <em>{recipeInfo.servings}</em ></small></Typography> : <></>}
       {recipeInfo.cook_time ? <Typography mt={-1}><small>Cook Time: <em>{recipeInfo.cook_time} mins</em ></small></Typography> : <></>}
       <br />

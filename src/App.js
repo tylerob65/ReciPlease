@@ -8,6 +8,7 @@ import LoginPage from './views/LoginPage';
 import Logout from './views/Logout';
 import ModifyRecipe from './views/ModifyRecipe';
 import MyProfile from './views/MyProfile';
+import Profile from './views/Profile';
 import RandomRecipe from './views/RandomRecipe';
 import SearchByIngredients from './views/SearchByIngredients';
 import SignUpPage from './views/SignUpPage';
@@ -72,7 +73,8 @@ export default function App() {
         <Route path='/viewsearchedrecipe/:spoonacularID' element={<ViewSearchedRecipe />} />
         <Route path='/searchbyingredients' element={<SearchByIngredients />} />
         <Route path='/addrecipe' element={<AddRecipe />} />
-        <Route path='/profile' element={<MyProfile />} />
+        <Route path='/myprofile' element={<MyProfile />} />
+        <Route path='/profile/:userID' element={<Profile />} />
         <Route path='/modifyrecipe/:recipeID' element={<ModifyRecipe />} />
         <Route path='/signup' element={<SignUpPage logMeIn={logMeIn} />} />
         <Route path='/login' element={<LoginPage logMeIn={logMeIn} user={user} />} />

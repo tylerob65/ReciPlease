@@ -29,7 +29,7 @@ const pagesLoggedOut = [
     ["Login", "/login"],
 ]
 const settings = [
-    ['Profile', "/profile"],
+    ['Profile', "/myprofile"],
     ['Logout', "/logout"]
 ];
 
