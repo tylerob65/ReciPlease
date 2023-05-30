@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { Box, Button, Container, Typography } from '@mui/material'
-import { useUser } from '../context/UserContext'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { Link } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
+import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
-export default function SearchByIngredientsCard({recipe}) {
-  
+export default function SearchByIngredientsCard({ recipe }) {
+  const navigate = useNavigate()
+
   const makeIngredientsCategories = () => {
     const ingredientCategories = [
       ["Ingredients you have", recipe.usedIngredients],
@@ -42,7 +36,7 @@ export default function SearchByIngredientsCard({recipe}) {
   }
 
   return (
-    <Card sx={{ maxWidth: 300,p:1 }} elevation={4}>
+    <Card sx={{ maxWidth: 300, p: 1 }} elevation={4}>
       <CardMedia
         component="img"
         height="140"
@@ -51,17 +45,22 @@ export default function SearchByIngredientsCard({recipe}) {
           objectFit: "contain",
         }}
       />
-      <CardContent sx={{p:1}}>
+      <CardContent sx={{ p: 1 }}>
         {/* Title */}
         <Typography variant="h6">{recipe.title}</Typography>
         {makeIngredientsCategories()}
-      
+
       </CardContent>
       <CardActions disableSpacing={true}>
         <Box width="100%" textAlign="center">
-          <Button color="secondary">View Recipe</Button>
+          <Button
+            color="secondary"
+            onClick={() => { navigate("/viewsearchedrecipe/" + recipe.id) }}
+          >
+            View Recipe
+          </Button>
         </Box>
-        
+
       </CardActions>
 
     </Card>

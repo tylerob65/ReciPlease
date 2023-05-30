@@ -1,44 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import { Box, Button, Container, Grid, Typography } from '@mui/material'
-import { useUser } from '../context/UserContext'
-import Paper from '@mui/material/Paper';
-import { Link } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
+import React, { useState } from 'react'
 import SearchByIngredientsCard from '../components/SearchByIngredientsCard';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import Grow from '@mui/material/Grow';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 export default function SearchByIngredients() {
-  // This is a fake searched recipe that I will be using for design purposes
-  // It does not exactly match formatting from API
-
   const [cardsShown, setCardsShown] = useState(false)
   const [recipeList, setRecipeList] = useState([])
   let haveRecipeResults = recipeList.length === 0
 
-  // Keep temporarily - this is a good practice recipe 
-  // const recipe = {
-  //   id: 527097,
-  //   title: "Green Smoothie",
-  //   image: "https://spoonacular.com/recipeImages/527097-312x231.jpg",
-  //   imageType: "jpg",
-  //   usedIngredientCount: 3,
-  //   missedIngredientCount: 2,
-  //   missedIngredients: [
-  //     "baby spinach",
-  //     "ginger"
-  //   ],
-  //   usedIngredients: [
-  //     "banana",
-  //     "granny smith apple",
-  //     "orange",
-  //   ],
-  //   unusedIngredients: [
-  //     "cheese",
-  //   ]
-  // }
-
   const getGrowTime = (i) => (
-    200 + (600 * i)
+    200 + (900 * i)
   )
   const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
 
@@ -63,15 +40,11 @@ export default function SearchByIngredients() {
     }
     const res = await fetch(url, options);
     const data = await res.json();
-    console.log(data)
     setCardsShown(false)
     setTimeout(() => {
       setRecipeList(data.data)
-      console.log("test")
       setCardsShown(true)
     }, 200)
-
-    // console.log(e)
   }
 
 
