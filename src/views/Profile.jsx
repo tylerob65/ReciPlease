@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '../context/UserContext'
+import UserLikedRecipes from '../components/UserLikedRecipes';
 import UserMostLikedRecipes from '../components/UserMostLikedRecipes';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -33,6 +34,10 @@ export default function Profile() {
         getPublicUserInfo()
     },[])
 
+    useEffect(() => {
+        getPublicUserInfo()
+    }, [userID])
+
     return (
         <Container>
             <br />
@@ -40,6 +45,8 @@ export default function Profile() {
             <Typography variant='h2'>{profileUserInfo.username}'s profile</Typography>
             <br />
             <UserMostLikedRecipes userID={userID} />
+            <br />
+            <UserLikedRecipes userID={userID}/>
             <br />
             </Box>
         </Container>

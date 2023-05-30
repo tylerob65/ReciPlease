@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useUser } from '../context/UserContext'
 import UserMostLikedRecipes from '../components/UserMostLikedRecipes';
+import UserLikedRecipes from '../components/UserLikedRecipes';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -17,8 +18,8 @@ export default function MyProfile() {
         <Typography variant='h2'>{user.username}'s profile</Typography>
         <br />
         <UserMostLikedRecipes userID={user.id}/>
-        {/* <br /> */}
-        {/* {showUsersRecipes()} */}
+        <br />
+        <UserLikedRecipes userID={user.id} />
         <br />
 
       </Box>
