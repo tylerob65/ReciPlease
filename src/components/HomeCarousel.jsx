@@ -19,8 +19,6 @@ export default function HomeCarousel() {
     const url = REACT_APP_BACKEND_URL_BASE + "/getrandomhomepagerecipes"
     const res = await fetch(url)
     const data = await res.json()
-    console.log("ran get recipe")
-    console.log(data)
     if (data.status === "ok") {
       setRecipeList(data.data)
       return

@@ -13,7 +13,6 @@ import RandomRecipe from './views/RandomRecipe';
 import SearchByIngredients from './views/SearchByIngredients';
 import SignUpPage from './views/SignUpPage';
 import ViewRecipe from './views/ViewRecipe';
-import ViewRecipeDemo from './views/ViewRecipeDemo';
 import ViewSearchedRecipe from './views/ViewSearchedRecipe';
 import Navbar from './components/Navbar';
 import Message from './components/Message';
@@ -26,24 +25,18 @@ export default function App() {
 
   const logMeIn = (user, rememberMe) => {
     setUser(user)
-    console.log("LoggingIn", user)
     if (rememberMe) {
       localStorage.setItem("ReciPlease_user", JSON.stringify(user))
-      console.log("Wanted to remember")
     }
   }
 
   const logMeOut = () => {
     setUser({})
     localStorage.removeItem("ReciPlease_user")
-    console.log("LoggedOut")
   }
 
   const showMessages = () => {
-    console.log("Printing messages")
-    console.log(messages)
     return (
-
       <Container maxWidth="sm">
         {messages.map(({ text, severity }, index) => {
           return (
@@ -55,7 +48,6 @@ export default function App() {
             />)
         })}
       </Container>
-
     )
   }
 
@@ -66,8 +58,6 @@ export default function App() {
       {showMessages()}
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/viewrecipedemo' element={<ViewRecipeDemo />} />
-        <Route path='/viewrandomrecipedemo' element={<ViewRecipeDemo />} />
         <Route path='/viewrecipe/:recipeID' element={<ViewRecipe />} />
         <Route path='/viewrandomrecipe' element={<RandomRecipe />} />
         <Route path='/viewsearchedrecipe/:spoonacularID' element={<ViewSearchedRecipe />} />

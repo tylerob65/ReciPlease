@@ -8,8 +8,7 @@ export default function Logout({ logMeOut }) {
         logMeOut()
         navigate("/")
     })
-
-
+    
     return (
         <div>Logout</div>
     )

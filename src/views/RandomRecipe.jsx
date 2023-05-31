@@ -1,27 +1,22 @@
-import React, { useState } from 'react'
-import { Box, Button, Chip, Container, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
+import React, { useState, useEffect } from 'react'
 import { useMessage } from '../context/MessageContext'
-import { Link as MuiLink, List, ListItem } from '@mui/material'
-import { Fragment, useEffect } from 'react'
-import { themeOptions } from '../themes/primaryTheme'
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { useUser } from '../context/UserContext'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { useNavigate, useParams } from 'react-router-dom'
-import LikeButton from '../components/LikeButton'
-import Collapse from '@mui/material/Collapse';
+import { useNavigate } from 'react-router-dom'
 import NutritionalInfo from '../components/NutritionalInfo'
-import CircularProgress from '@mui/material/CircularProgress';
-import SpoonacularChip from '../components/SpoonacularChip';
 import RecipeContent from '../components/RecipeContent'
+import SpoonacularChip from '../components/SpoonacularChip';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Collapse from '@mui/material/Collapse';
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 
 export default function RandomRecipe() {
   const { user } = useUser()
   const navigate = useNavigate()
-  let { messages, addMessage } = useMessage()
+  let { addMessage } = useMessage()
 
   const [visibleNutritionalInfo, setVisibleNutritionalInfo] = useState(false)
 
@@ -33,11 +28,7 @@ export default function RandomRecipe() {
     const url = REACT_APP_BACKEND_URL_BASE + "/getrandomrecipe"
     const res = await fetch(url)
     const data = await res.json()
-    console.log("ran get recipe")
-    // console.log("data")
-    // console.log(data)
-    // console.log("data.data")
-    // console.log(data.data)
+
     if (data.message === "recipe already in database") {
       addMessage("Random recipe was already in database", "success")
       navigate("/viewrecipe/" + data.data.recipe_id)
@@ -45,7 +36,6 @@ export default function RandomRecipe() {
 
     if (data.status === "ok") {
       setRecipeInfo(data.data)
-      console.log(data.data)
       return
     }
     addMessage(data.message)
@@ -56,8 +46,8 @@ export default function RandomRecipe() {
       <>
         {recipeInfo.nutritional_info ?
           <NutritionalInfo
-          nutritionalInfo={recipeInfo.nutritional_info}
-          servings={recipeInfo.servings}
+            nutritionalInfo={recipeInfo.nutritional_info}
+            servings={recipeInfo.servings}
           />
           :
           <>
@@ -69,22 +59,21 @@ export default function RandomRecipe() {
 
   const handleShowNutritionalInfo = async () => {
     if (visibleNutritionalInfo) {
+      // Nutritional Info was true and set to false
       setVisibleNutritionalInfo(false)
-      console.log("Nutritional Info was true and set to false")
       return
     }
 
     if (recipeInfo.nutritional_info) {
+      // There was nutritional info, and now setting shown to true
       setVisibleNutritionalInfo(true)
-      console.log("There was nutritional info, and now setting shown to true")
       return
     }
 
     const url = REACT_APP_BACKEND_URL_BASE + "/getnutritionalinfospoonacular/" + recipeInfo.spoonacular_id
     const res = await fetch(url)
     const data = await res.json()
-    console.log("data")
-    console.log(data)
+
     if (data.status === "ok") {
       const newRecipeInfo = {
         ...recipeInfo,
@@ -101,7 +90,7 @@ export default function RandomRecipe() {
     const data = await res.json()
 
     if (data.status === "ok") {
-      addMessage("Recipe successfully saved to ReciPlease","success")
+      addMessage("Recipe successfully saved to ReciPlease", "success")
       navigate("/viewrecipe/" + data.data.recipe_id)
     }
   }
@@ -152,6 +141,7 @@ export default function RandomRecipe() {
               color="secondary"
               variant="outlined"
               onClick={handleSaveToReciPlease}
+              sx={{ width: "225px" }}
             >
               Save To ReciPlease
             </Button>
@@ -165,6 +155,7 @@ export default function RandomRecipe() {
           variant="outlined"
           onClick={handleShowNutritionalInfo}
           color="secondary"
+          sx={{ width: "225px" }}
         >
           {visibleNutritionalInfo ? "Hide" : "Show"} Nutritional Info
         </Button>

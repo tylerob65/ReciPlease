@@ -1,7 +1,7 @@
 import React from 'react'
-import { Card } from '@mui/material'
-import { Box, Button, Chip, Container, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
 import SpoonacularChip from './SpoonacularChip'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 export default function NutritionalInfo({ nutritionalInfo, servings }) {
   const one_dec = (val) => (Math.round(val * 10) / 10)
@@ -30,28 +30,22 @@ export default function NutritionalInfo({ nutritionalInfo, servings }) {
   }
 
 
-
-
-
-
   return (
-    <Box p={2} sx={{ border: "1px solid black",minWidth:"300px" }}>
+    <Box p={2} sx={{ border: "1px solid black", minWidth: "300px" }}>
       <Typography variant="h5"><b>Nutritional Facts</b></Typography>
       <Typography><small><b>Per Serving</b> (serves {serves})</small></Typography>
-      {/* <Typography><small><a style={{ color: "black" }} href="https://spoonacular.com/food-api" target="_blank">
-        data from spoonacular api
-      </a></small></Typography> */}
-      
+
       <Typography variant="h6"><b>Calories: </b> {one_dec(nutritionalInfo["Calories"]["amount"])}</Typography>
+
       <br />
 
       <Typography><b><u>Nutrient</u><span style={{ float: "right" }}><u>% daily value</u></span></b></Typography>
 
       {makeCardGroup("primary")}
-      <hr/>
+      <hr />
       {makeCardGroup("secondary")}
       <br />
-      <SpoonacularChip text="from spoonacular api"/>
+      <SpoonacularChip text="from spoonacular api" />
     </Box>
   )
 }

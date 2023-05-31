@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useUser } from '../context/UserContext'
-import { Box, Button, Chip, Container, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Chip from '@mui/material/Chip';
 
-export default function LikeButton({recipeID, recipeInfo}) {
+export default function LikeButton({ recipeID, recipeInfo }) {
   const { user } = useUser()
 
-  const [recipeIsLiked,setRecipeIsLiked] = useState(null)
-  
+  const [recipeIsLiked, setRecipeIsLiked] = useState(null)
+
   const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
 
   const findOutIfLike = async () => {
@@ -16,19 +16,17 @@ export default function LikeButton({recipeID, recipeInfo}) {
 
     const url = REACT_APP_BACKEND_URL_BASE + "/doilike/" + recipeID
     const headers = { Authorization: `Bearer ${user.apitoken}` }
-    const options = {headers:headers}
-    const res = await fetch(url,options)
+    const options = { headers: headers }
+    const res = await fetch(url, options)
     const data = await res.json()
-    console.log("got data")
-    console.log(data)
     setRecipeIsLiked(data.data.liked)
   }
   const likeRecipe_original = async (e) => {
     e.preventDefault();
     const url = REACT_APP_BACKEND_URL_BASE + "/likerecipe"
-    
+
     const body = {
-      "recipe_id":recipeID,
+      "recipe_id": recipeID,
     }
 
     const options = {
@@ -39,9 +37,7 @@ export default function LikeButton({recipeID, recipeInfo}) {
       },
       body: JSON.stringify(body),
     }
-    console.log(options)
     const res = await fetch(url, options);
-    console.log(res)
     const data = await res.json();
 
     // TODO add error message if data/status is not ok
@@ -78,10 +74,10 @@ export default function LikeButton({recipeID, recipeInfo}) {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     findOutIfLike()
-  },[])
-  
+  }, [])
+
   // Show nothing if user isn't signed in
   if (!user.apitoken) return (<></>);
   // Show nothing if recipe info hasn't loaded
@@ -96,15 +92,14 @@ export default function LikeButton({recipeID, recipeInfo}) {
   if (!recipeIsLiked) {
     return (
       <>
-      <Chip icon={<FavoriteBorderIcon />} size="small" label="Like" variant="outlined" onClick={likeRecipe_original}/>
+        <Chip icon={<FavoriteBorderIcon />} size="small" label="Like" variant="outlined" onClick={likeRecipe_original} />
       </>
     )
   }
-  
 
   return (
     <>
-      <Chip icon={<FavoriteIcon />} size="small" label="Liked" color="secondary" variant="outlined" onClick={unlikeRecipe}/>
+      <Chip icon={<FavoriteIcon />} size="small" label="Liked" color="secondary" variant="outlined" onClick={unlikeRecipe} />
     </>
   )
 }

@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link as MuiLink, Chip } from '@mui/material'
+import { Link as MuiLink } from '@mui/material'
+import Chip from '@mui/material/Chip'
 
 export default function ({ text }) {
-  text = text||"spoonacular recipe"
+  text = text || "spoonacular recipe"
   return (
     <MuiLink
       href="https://spoonacular.com/food-api"
@@ -14,7 +15,7 @@ export default function ({ text }) {
         label={text}
         variant="outlined"
         sx={{ color: "#00843c", borderColor: '#00843c' }}
-        onClick={()=>{}}
+        onClick={() => { }}
       />
     </MuiLink>
   )

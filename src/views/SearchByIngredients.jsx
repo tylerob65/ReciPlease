@@ -12,12 +12,12 @@ import Typography from '@mui/material/Typography';
 export default function SearchByIngredients() {
   const [cardsShown, setCardsShown] = useState(false)
   const [recipeList, setRecipeList] = useState([])
-  let haveRecipeResults = recipeList.length === 0
+
+  const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
 
   const getGrowTime = (i) => (
     200 + (900 * i)
   )
-  const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +46,6 @@ export default function SearchByIngredients() {
       setCardsShown(true)
     }, 200)
   }
-
 
   return (
     <Container sx={{ py: 1 }}>
@@ -81,7 +80,7 @@ export default function SearchByIngredients() {
 
           {/* Search Button */}
           <Box textAlign="center">
-            <Button color="secondary" variant="outlined" type="submit">
+            <Button color="secondary" variant="outlined" type="submit" sx={{ width: "225px" }}>
               Search for Recipes
             </Button>
           </Box>

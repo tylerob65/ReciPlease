@@ -1,29 +1,30 @@
-import { Box, Button, Container, Divider, Grid, Paper, TextField, Typography } from '@mui/material'
 import React, { useState, Fragment } from 'react';
+import { useUser } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { useMessage } from '../context/MessageContext'
-import { useUser } from '../context/UserContext';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
 import InputAdornment from '@mui/material/InputAdornment';
-import { useNavigate } from 'react-router-dom';
-
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 export default function AddRecipe() {
 
-  // let { addMessage } = useMessage()
   const { user } = useUser()
 
   const navigate = useNavigate()
 
   const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
-  // const REACT_APP_FRONTEND_URL_BASE = process.env.REACT_APP_FRONTEND_URL_BASE
 
   const maxIngredients = 20
   const maxInstructions = 20
 
-
-  const [instructionsList, setInstructionsList] = useState(["", "", "", "", ""])
-  const [ingredientsList, setIngredientsList] = useState(["", "", "", "", "", "", "", "", "", "", "", "", ""])
+  const [instructionsList, setInstructionsList] = useState(["", "", ""])
+  const [ingredientsList, setIngredientsList] = useState(["", "", ""])
 
 
   const handleInstructionChange = (e, i) => {
@@ -100,34 +101,12 @@ export default function AddRecipe() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("test")
-    console.log(e)
-    console.log(e.target)
-    
-    // Instructions/Ingredients are working
     const ingredients = [...ingredientsList]
     const instructions = [...instructionsList]
-    console.log(ingredients)
-    console.log(instructions)
-    
-    // Recipe Title Works
-    console.log("recipe_title",e.target.recipe_title.value)
     const recipe_title = e.target.recipe_title.value || null
-    
-    // Image URL works
-    console.log("image_url",e.target.image_url.value)
     const image_url = e.target.image_url.value || null
-
-    // Source URL Works
-    console.log("source_url", e.target.source_url.value)
     const source_url = e.target.source_url.value || null
-
-    // Servings Works
-    console.log("servings", e.target.servings.value)
     const servings = e.target.servings.value || null
-
-    // Cook time Works
-    console.log("cook_time", e.target.cook_time.value)
     const cook_time = e.target.cook_time.value || null
 
     const body = {
@@ -139,32 +118,24 @@ export default function AddRecipe() {
       ingredients,
       instructions,
     }
-    console.log(body)
-    console.log(user.apitoken)
 
-    const url = REACT_APP_BACKEND_URL_BASE +"/addrecipe"
-    console.log(url)
+    const url = REACT_APP_BACKEND_URL_BASE + "/addrecipe"
 
     const options = {
-      method:"POST",
+      method: "POST",
       headers: {
-        "Content-Type":'application/json',
+        "Content-Type": 'application/json',
         Authorization: `Bearer ${user.apitoken}`
       },
       body: JSON.stringify(body),
     }
-    console.log(options)
 
     const res = await fetch(url, options);
     const data = await res.json();
-    console.log("Console.logged data...",data)
-    console.log("Console.logged data.recipe_id...",data.recipe_id)
 
     navigate(`/viewrecipe/${data.data.recipe_id}`)
     // TODO deal with errors if not success
-    
-    
-    }
+  }
 
 
   return (
@@ -199,63 +170,35 @@ export default function AddRecipe() {
             fullWidth
           />
 
-          <br/><br/>
+          <br /><br />
 
           <TextField label="Source URL"
             id="source_url"
+            required
             fullWidth
           />
 
           <br /><br />
 
           <Box>
-          <TextField
-            label="Servings"
-            id="servings"
-            type="number"
-            sx={{width:"200px",mr:2,mb:2}}
-          />
+            <TextField
+              label="Servings"
+              id="servings"
+              type="number"
+              sx={{ width: "200px", mr: 2, mb: 2 }}
+            />
 
-          <TextField
-            label="Cook Time"
-            id="cook_time"
-            type="number"
-            sx={{ width: "200px" }}
-            InputProps={{
-              endAdornment: <InputAdornment position='end'>mins</InputAdornment>
+            <TextField
+              label="Cook Time"
+              id="cook_time"
+              type="number"
+              sx={{ width: "200px" }}
+              InputProps={{
+                endAdornment: <InputAdornment position='end'>mins</InputAdornment>
 
-            }}
-          />
+              }}
+            />
           </Box>
-
-          {/* IN PROGRESS ATTEMPT TO MESS AROUND WITH GRID */}
-
-          {/* <Grid container spacing={2} columns ={{xs:4,md:12}} justifyContent="center">
-            <Grid item xs={4} md={6} textAlign="center">
-              <TextField
-                label="Servings"
-                id="servings"
-                type="number"
-              // sx={{width:"200px"}}
-              />
-            </Grid>
-
-            <Grid item xs={4} md={6} textAlign="center">
-
-              <TextField
-                label="Cook Time"
-                id="cooktime"
-                type="number"
-                // sx={{ width: "200px" }}
-                sx={{flexGrow:1}}
-                InputProps={{
-                  endAdornment: <InputAdornment position='end'>mins</InputAdornment>
-
-                }}
-              />
-            </Grid>
-          </Grid> */}
-          
 
           <Divider sx={{ my: 2 }} />
 
@@ -268,11 +211,11 @@ export default function AddRecipe() {
 
           {/* Ingredients Buttons */}
           <Box textAlign="center">
-            <Button sx={{ m: 1, width:"170px"}} variant="outlined" color="success" startIcon={<AddIcon />} onClick={handleAddIngredient} disabled={ingredientsList.length >= maxIngredients}>
+            <Button sx={{ m: 1, width: "170px" }} variant="outlined" color="success" startIcon={<AddIcon />} onClick={handleAddIngredient} disabled={ingredientsList.length >= maxIngredients}>
               Add New Step
             </Button>
 
-            <Button sx={{ m: 1, width:"170px"}} variant="outlined" color="error" startIcon={<RemoveIcon />} onClick={handleRemoveIngredient} disabled={ingredientsList.length <= 1}>
+            <Button sx={{ m: 1, width: "170px" }} variant="outlined" color="error" startIcon={<RemoveIcon />} onClick={handleRemoveIngredient} disabled={ingredientsList.length <= 1}>
               Remove Step
             </Button>
           </Box>
@@ -300,7 +243,7 @@ export default function AddRecipe() {
           <Divider sx={{ my: 2 }} />
 
           <Box textAlign="center">
-            <Button type="submit" variant="outlined" color="success"> 
+            <Button type="submit" variant="outlined" color="success">
               Add Recipe
             </Button>
           </Box>

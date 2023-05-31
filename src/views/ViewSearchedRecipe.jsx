@@ -34,7 +34,7 @@ export default function ViewSearchedRecipe() {
       addMessage("Random recipe was already in database", "success")
       navigate("/viewrecipe/" + data.data.recipe_id)
     }
-    if (data.status==="ok") {
+    if (data.status === "ok") {
       setRecipeInfo(data.data)
       return
     }
@@ -124,7 +124,7 @@ export default function ViewSearchedRecipe() {
                   </Stack>
                 </Box>
               </Box>
-              
+
               {/* This is what displays most recipe content */}
               <RecipeContent recipeInfo={recipeInfo} />
             </>
@@ -137,6 +137,7 @@ export default function ViewSearchedRecipe() {
               color="secondary"
               variant="outlined"
               onClick={handleSaveToReciPlease}
+              sx={{ width: "225px" }}
             >
               Save To ReciPlease
             </Button>
@@ -149,6 +150,7 @@ export default function ViewSearchedRecipe() {
           variant="outlined"
           onClick={handleShowNutritionalInfo}
           color="secondary"
+          sx={{ width: "225px" }}
         >
           {visibleNutritionalInfo ? "Hide" : "Show"} Nutritional Info
         </Button>

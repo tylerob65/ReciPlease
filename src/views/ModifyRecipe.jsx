@@ -1,11 +1,17 @@
-import { Box, Button, Container, Divider, Grid, Paper, TextField, Typography } from '@mui/material'
 import React, { useState, Fragment, useEffect } from 'react';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import { useMessage } from '../context/MessageContext'
 import { useUser } from '../context/UserContext';
-import InputAdornment from '@mui/material/InputAdornment';
 import { useNavigate, useParams } from 'react-router-dom'
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
+import InputAdornment from '@mui/material/InputAdornment';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 export default function ModifyRecipe() {
   const { recipeID } = useParams()
@@ -22,12 +28,12 @@ export default function ModifyRecipe() {
 
   const [instructionsList, setInstructionsList] = useState([""])
   const [ingredientsList, setIngredientsList] = useState([""])
-  const [otherRecipeInfo,setOtherRecipeInfo] = useState({
-    "recipe_title":"",
-    "image_url":"",
-    "source_url":"",
-    "servings":"",
-    "cook_time":"",
+  const [otherRecipeInfo, setOtherRecipeInfo] = useState({
+    "recipe_title": "",
+    "image_url": "",
+    "source_url": "",
+    "servings": "",
+    "cook_time": "",
   })
 
   const handleInstructionChange = (e, i) => {
@@ -42,8 +48,8 @@ export default function ModifyRecipe() {
     setIngredientsList(newIngredientsList)
   }
 
-  const handleOtherRecipeInfoChange = (e,category) => {
-    const newOtherRecipeInfo = {...otherRecipeInfo}
+  const handleOtherRecipeInfoChange = (e, category) => {
+    const newOtherRecipeInfo = { ...otherRecipeInfo }
     newOtherRecipeInfo[category] = e.target.value
     setOtherRecipeInfo(newOtherRecipeInfo)
   }
@@ -110,15 +116,8 @@ export default function ModifyRecipe() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(e)
-    // Step is unnecessary
-    const ingredients = [...ingredientsList]
-    const instructions = [...instructionsList]
-    console.log(ingredients)
-    console.log(instructions)
-
     const body = {
-      recipeID:recipeID,
+      recipeID: recipeID,
       recipe_title: otherRecipeInfo.recipe_title,
       image_url: otherRecipeInfo.image_url,
       source_url: otherRecipeInfo.source_url || null,
@@ -127,8 +126,6 @@ export default function ModifyRecipe() {
       ingredients: [...ingredientsList],
       instructions: [...instructionsList],
     }
-    console.log("Print Body")
-    console.log(body)
 
     const url = REACT_APP_BACKEND_URL_BASE + "/updaterecipe"
 
@@ -140,7 +137,6 @@ export default function ModifyRecipe() {
       },
       body: JSON.stringify(body),
     }
-    console.log(options)
 
     const res = await fetch(url, options);
     const data = await res.json();
@@ -157,18 +153,18 @@ export default function ModifyRecipe() {
     }
     const headers = { Authorization: `Bearer ${user.apitoken}` }
     const url = REACT_APP_BACKEND_URL_BASE + "/editrecipe/" + recipeID
-    const res = await fetch(url,{headers})
+    const res = await fetch(url, { headers })
     const data = await res.json()
     if (data.status !== "ok") {
       addMessage(data.message)
       return
     }
-     
+
     setIngredientsList(data.recipeInfo.ingredients)
     setInstructionsList(data.recipeInfo.instructions)
-    console.log(data)
+
     const newOtherRecipeInfo = {
-      "recipe_title": data.recipeInfo.title||"",
+      "recipe_title": data.recipeInfo.title || "",
       "image_url": data.recipeInfo.image_url || "",
       "source_url": data.recipeInfo.source_url || "",
       "servings": data.recipeInfo.servings || "",
@@ -179,7 +175,7 @@ export default function ModifyRecipe() {
 
   useEffect(() => {
     loadRecipe()
-  },[])
+  }, [])
 
 
   return (
@@ -204,7 +200,7 @@ export default function ModifyRecipe() {
           <TextField label="Recipe Title"
             id="recipe_title"
             value={otherRecipeInfo["recipe_title"]}
-            onChange={(e)=>handleOtherRecipeInfoChange(e,"recipe_title")}
+            onChange={(e) => handleOtherRecipeInfoChange(e, "recipe_title")}
             fullWidth
             required
           />
@@ -302,10 +298,10 @@ export default function ModifyRecipe() {
           </Box>
 
 
-        </Paper> 
+        </Paper>
       </Box>
       <br />
     </Container>
-    
+
   )
 }

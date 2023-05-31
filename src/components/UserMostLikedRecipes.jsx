@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -15,7 +15,6 @@ export default function UserMostLikedRecipes({ userID }) {
   const [recipes, setRecipes] = useState([])
   const [maxPageCount, setMaxPageCount] = useState(5)
   const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
-  const viewRecipeUrl = REACT_APP_BACKEND_URL_BASE + "/viewrecipe/"
 
   const [page, setPage] = useState(1);
   const handlePageChange = async (event, value) => {
@@ -29,11 +28,10 @@ export default function UserMostLikedRecipes({ userID }) {
     const data = await res.json();
     if (data.status === 'ok') {
       setRecipes(data.data.recipe_list)
-      console.log(data)
     }
     setMaxPageCount(data.data.max_pages)
   }
-  
+
   useEffect(() => { getRecipes(1) }, [])
   useEffect(() => { getRecipes(1) }, [userID])
 
@@ -50,7 +48,7 @@ export default function UserMostLikedRecipes({ userID }) {
         </TableHead>
         <TableBody>
           {
-            recipes.map((recipeInfo,i) => (
+            recipes.map((recipeInfo, i) => (
               <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell>
                   <Link to={"/viewrecipe/" + recipeInfo.recipe_id}>
@@ -64,7 +62,7 @@ export default function UserMostLikedRecipes({ userID }) {
             ))
           }
         </TableBody>
-        
+
       </Table>
       <Box display="flex" justifyContent="center" p={2}>
         <Pagination count={maxPageCount} page={page} variant='outlined' color="secondary" onChange={handlePageChange} />

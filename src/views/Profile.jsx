@@ -12,7 +12,7 @@ export default function Profile() {
     const { user } = useUser()
 
     const [profileUserInfo, setProfileUserInfo] = useState({})
-    
+
     const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
 
     const navigate = useNavigate()
@@ -25,14 +25,14 @@ export default function Profile() {
         const url = REACT_APP_BACKEND_URL_BASE + "/getpublicuserinfo/" + userID
         const res = await fetch(url)
         const data = await res.json()
-        if (data.status==="ok") {
+        if (data.status === "ok") {
             setProfileUserInfo(data.data)
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getPublicUserInfo()
-    },[])
+    }, [])
 
     useEffect(() => {
         getPublicUserInfo()
@@ -42,12 +42,12 @@ export default function Profile() {
         <Container>
             <br />
             <Box textAlign="center">
-            <Typography variant='h2'>{profileUserInfo.username}'s profile</Typography>
-            <br />
-            <UserMostLikedRecipes userID={userID} />
-            <br />
-            <UserLikedRecipes userID={userID}/>
-            <br />
+                <Typography variant='h2'>{profileUserInfo.username}'s profile</Typography>
+                <br />
+                <UserMostLikedRecipes userID={userID} />
+                <br />
+                <UserLikedRecipes userID={userID} />
+                <br />
             </Box>
         </Container>
     )
