@@ -12,6 +12,9 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
 
+import HomeCard from '../components/HomeCard';
+import HomeCarousel from '../components/HomeCarousel';
+
 export default function Home() {
     const [recipes, setRecipes] = useState([])
     const [maxPageCount, setMaxPageCount] = useState(5)
@@ -52,6 +55,8 @@ export default function Home() {
                 Welcome
             </Typography>
 
+            <br /><br />
+            <HomeCarousel/>
             <br /><br />
 
             {/* Most Liked Recipes Section */}
