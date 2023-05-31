@@ -1,9 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import { Box, CardActionArea, CardContent, CardMedia, Paper, Slide, Typography } from '@mui/material'
+import CardActionArea from '@mui/material/CardActionArea'
+import CardContent from '@mui/material/CardContent'
+import Slide from '@mui/material/Slide'
+import Typography from '@mui/material/Typography'
 
-export default function HomeCard({ isVisible, slideDirectionRight, imageUrl, cardIndex }) {
+export default function HomeCard({ isVisible, slideDirectionRight, recipeInfo, cardIndex }) {
   const slideDirection = slideDirectionRight ? "right" : "left";
+  const navigate = useNavigate()
 
   return (
     <Slide direction={slideDirection} in={isVisible} unmountOnExit timeout={900}
@@ -25,7 +31,7 @@ export default function HomeCard({ isVisible, slideDirectionRight, imageUrl, car
         <Card
           elevation={4}
           sx={{
-            backgroundImage: `url(${imageUrl})`,
+            backgroundImage: `url(${recipeInfo.image_url})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             objectFit: "cover",
@@ -34,7 +40,9 @@ export default function HomeCard({ isVisible, slideDirectionRight, imageUrl, car
             display: "flex",
             flexDirection: "column-reverse"
           }}>
-          <CardActionArea>
+          <CardActionArea
+            onClick={() => { navigate("viewrecipe/" + recipeInfo.recipe_id) }}
+          >
             <CardContent
               sx={{
                 backgroundColor: "rgba(255, 255, 255, 0.7)",
@@ -50,19 +58,16 @@ export default function HomeCard({ isVisible, slideDirectionRight, imageUrl, car
                 variant="h6"
                 color="secondary"
                 sx={{
-                  whiteSpace:"nowrap",
-                  overflow:"hidden",
-                  textOverflow:"ellipsis",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
-                >
-                Chili Cheese Sweet Potato Casserole
+              >
+                {recipeInfo.recipe_title}
               </Typography>
             </CardContent>
           </CardActionArea>
-
         </Card>
-
-
       </Box>
     </Slide>
   )
