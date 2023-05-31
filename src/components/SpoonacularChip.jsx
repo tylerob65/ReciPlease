@@ -9,12 +9,13 @@ export default function ({ text }) {
       href="https://spoonacular.com/food-api"
       target="_blank"
       rel="noopener"
+      sx={{ textDecoration: "none" }}
     >
       <Chip
         size="small"
         label={text}
         variant="outlined"
-        sx={{ color: "#00843c", borderColor: '#00843c' }}
+        sx={{ color: "#00843c", borderColor: '#00843c'}}
         onClick={() => { }}
       />
     </MuiLink>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -14,6 +15,7 @@ import Pagination from '@mui/material/Pagination';
 export default function UserMostLikedRecipes({ userID }) {
   const [recipes, setRecipes] = useState([])
   const [maxPageCount, setMaxPageCount] = useState(5)
+  const [loaded, setLoaded] = useState(false)
   const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
 
   const [page, setPage] = useState(1);
@@ -26,6 +28,7 @@ export default function UserMostLikedRecipes({ userID }) {
     const url = `${REACT_APP_BACKEND_URL_BASE}/getusertoprecipes/${userID}/${page_num}`
     const res = await fetch(url)
     const data = await res.json();
+    setLoaded(true)
     if (data.status === 'ok') {
       setRecipes(data.data.recipe_list)
     }
@@ -38,32 +41,48 @@ export default function UserMostLikedRecipes({ userID }) {
   return (
     <TableContainer elevation={4} component={Paper}>
       <br />
-      <Typography variant='h4'>Most Liked Recipes</Typography>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell><b>Recipe Title</b></TableCell>
-            <TableCell sx={{ textAlign: "center" }}><b>Likes Count</b></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {
-            recipes.map((recipeInfo, i) => (
-              <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell>
-                  <Link to={"/viewrecipe/" + recipeInfo.recipe_id}>
-                    <Typography variant="a" color="secondary" sx={{ textDecoration: "underline" }}>
-                      {recipeInfo.recipe_title}
-                    </Typography>
-                  </Link>
-                </TableCell>
-                <TableCell sx={{ textAlign: "center" }}>{recipeInfo.like_count}</TableCell>
-              </TableRow>
-            ))
-          }
-        </TableBody>
 
-      </Table>
+      <Typography variant='h4'>Most Liked Recipes</Typography>
+
+      {!loaded ?
+        <>
+          <CircularProgress color="secondary" />
+        </>
+        :
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell><b>Recipe Title</b></TableCell>
+              <TableCell sx={{ textAlign: "center" }}><b>Likes Count</b></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
+              recipes.length === 0 ?
+                <TableRow>
+                  <TableCell colSpan={2} sx={{ textAlign: "center" }}>
+                    <Typography>
+                      Have Not Made Any Recipes Yet
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+                :
+                recipes.map((recipeInfo, i) => (
+                  <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    <TableCell>
+                      <Link to={"/viewrecipe/" + recipeInfo.recipe_id}>
+                        <Typography variant="a" color="secondary" sx={{ textDecoration: "underline" }}>
+                          {recipeInfo.recipe_title}
+                        </Typography>
+                      </Link>
+                    </TableCell>
+                    <TableCell sx={{ textAlign: "center" }}>{recipeInfo.like_count}</TableCell>
+                  </TableRow>
+                ))
+            }
+          </TableBody>
+        </Table>
+      }
       <Box display="flex" justifyContent="center" p={2}>
         <Pagination count={maxPageCount} page={page} variant='outlined' color="secondary" onChange={handlePageChange} />
       </Box>

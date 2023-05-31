@@ -8,47 +8,51 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 export default function Profile() {
-    const { userID } = useParams()
-    const { user } = useUser()
+  const { userID } = useParams()
+  const { user } = useUser()
 
-    const [profileUserInfo, setProfileUserInfo] = useState({})
+  const [profileUserInfo, setProfileUserInfo] = useState({})
 
-    const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
+  const REACT_APP_BACKEND_URL_BASE = process.env.REACT_APP_BACKEND_URL_BASE
 
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
-    if (String(user.id) === userID) {
-        navigate("/myprofile")
+  if (String(user.id) === userID) {
+    navigate("/myprofile")
+  }
+
+  const getPublicUserInfo = async () => {
+    const url = REACT_APP_BACKEND_URL_BASE + "/getpublicuserinfo/" + userID
+    const res = await fetch(url)
+    const data = await res.json()
+    if (data.status === "ok") {
+      setProfileUserInfo(data.data)
     }
+  }
 
-    const getPublicUserInfo = async () => {
-        const url = REACT_APP_BACKEND_URL_BASE + "/getpublicuserinfo/" + userID
-        const res = await fetch(url)
-        const data = await res.json()
-        if (data.status === "ok") {
-            setProfileUserInfo(data.data)
-        }
-    }
+  useEffect(() => {
+    getPublicUserInfo()
+  }, [])
 
-    useEffect(() => {
-        getPublicUserInfo()
-    }, [])
+  useEffect(() => {
+    getPublicUserInfo()
+  }, [userID])
 
-    useEffect(() => {
-        getPublicUserInfo()
-    }, [userID])
-
-    return (
-        <Container>
-            <br />
-            <Box textAlign="center">
-                <Typography variant='h2'>{profileUserInfo.username}'s profile</Typography>
-                <br />
-                <UserMostLikedRecipes userID={userID} />
-                <br />
-                <UserLikedRecipes userID={userID} />
-                <br />
-            </Box>
-        </Container>
-    )
+  return (
+    <Container>
+      <br />
+      <Box textAlign="center">
+        <Typography
+          variant='h2'
+          color={!profileUserInfo.username ? "white" : "black"}
+        >
+          {profileUserInfo.username}'s profile</Typography>
+        <br />
+        <UserMostLikedRecipes userID={userID} />
+        <br />
+        <UserLikedRecipes userID={userID} />
+        <br />
+      </Box>
+    </Container>
+  )
 }
