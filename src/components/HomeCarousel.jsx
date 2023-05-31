@@ -29,6 +29,11 @@ export default function HomeCarousel() {
     getRandomCarouselRecipes()
   }, [])
 
+  useEffect(() => {
+    const interval = setInterval(increaseIndex,4000);
+    return () => clearInterval(interval);
+  })
+
   const getCopyOfTransitionState = () => {
     return {
       currentIndex: transitionStates.currentIndex,
