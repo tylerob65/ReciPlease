@@ -1,70 +1,115 @@
-# Getting Started with Create React App
+# ReciPlease
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to ReciPlease, a recipe web app designed to be a space where users can share and search for recipes. ReciPlease was my final capstone project for my [Coding Temple](https://www.codingtemple.com/software-engineering/part-time/) Software Engineering bootcamp . It's important to note that this project is solely intended for educational purposes, and I have no plans to create a recipe website that competes with existing mainstream platforms.
 
-## Available Scripts
+## Core Technologies Used
 
-In the project directory, you can run:
+- Frontend: React
+- Backend: Flask
+- Database: [ElephantSQL](https://www.elephantsql.com/)
 
-### `npm start`
+### Core Libraries Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Material UI: Used for frontend components
+- React Router: Used for frontend routing
+- Flask-HTTP-Auth: Used for user authentication
+- requests: Used for handling HTTP requests in Python
+- Flask-SQLAlchemy: Used to connect with the database
+- Werkzeug: Used for password security
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation and Setup
 
-### `npm test`
+### Frontend Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the frontend repository:
 
-### `npm run build`
+```
+git clone https://github.com/tylerob65/ReciPlease.git
+```
+2. Navigate to the frontend directory:
+```
+cd ReciPlease
+```
+3. Install the dependencies:
+```
+npm install
+```
+4. Start the development server:
+```
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the backend repository:
+```
+git clone https://github.com/tylerob65/ReciPlease-Backend.git
+```
+2. Navigate to the backend directory:
+```
+cd ReciPlease-Backend
+```
+3. Create virtual environment:
+```
+(on mac)
+python3 -m venv my_venv
+(on pc)
+python -m venv my_venv
+```
+4. Activate virtual environment:
+```
+(on mac)
+source my_venv/bin/activate
+(on pc)
+my_venv\Scripts\activate
+```
+5. Install the required packages:
+```
+(on mac)
+pip3 install -r requirements.txt
+(on pc)
+pip install -r requirements.txt
+```
+### Backend .env file
+```
+FLASK_APP = run.py
+FLASK_DEBUG = on
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Pick A secret key
+SECRET_KEY = 
 
-### `npm run eject`
+# List database url from elephantSQL. The url will start with 
+# postgres:// but should be changed to postgresql://
+DATABASE_URL = 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Put API key and host below for using Spoonacular API
+RAPID_API_KEY = 
+RAPID_API_HOST = 
+```
+### Backend - Flask-Migrate setup
+Enter following commands into command line to migrate database
+```
+flask db init
+flask db migrate
+flask db upgrade
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Spoonacular API Usage
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+ReciPlease leverages the power of the [Spoonacular API](https://spoonacular.com/food-api) to provide users with access to a wide range of recipe information. It's important to note that the terms of the Spoonacular API state that websites utilizing their API should not compete with the Spoonacular site or store any data obtained from the API. However, I had obtained special permission from Spoonacular to temporarily store data as I developed this web app for educational purposes only. Please be aware that I have no intentions of hosting this web app or using the stored data for any commercial purposes.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+I am grateful to Spoonacular for granting me temporary permission to store API data, enabling me to create this educational project.
 
-## Learn More
+## Acknowledgements
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Some of the code used in this project was adapted from demonstrations in my bootcamp class by my instructors. You can find my instructors' GitHub pages [here](https://github.com/smtsuchi) and [here](https://github.com/Sarah-Stodder).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Additional Information
 
-### Code Splitting
+- This Repo is just the for frontend of my web app. The backend can be found [here](https://github.com/tylerob65/ReciPlease-Backend).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [ChatGPT](https://openai.com/) was used to help organize content of this README.
 
-### Analyzing the Bundle Size
+- The favicon for this web app was designed using [favicon.io](https://favicon.io/).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
