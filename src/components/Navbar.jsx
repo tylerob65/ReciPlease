@@ -15,8 +15,6 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 
-// TODO Replace items below with the actual routes
-
 const pagesLoggedIn = [
   ["Home", "/"],
   ["Add Recipe", "/addrecipe"],
@@ -152,6 +150,7 @@ export default function Navbar({ logMeOut }) {
               <Button
                 key={pageTitle}
                 onClick={() => handleCloseNavMenu(url)}
+                color="secondary"
                 sx={{ my: 2, color: 'black', display: 'block', textTransform: 'none' }}
               >
                 {pageTitle}

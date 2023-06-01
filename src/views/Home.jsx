@@ -64,7 +64,14 @@ export default function Home() {
           fontSize: "3.5rem"
         }}
       >
-        Welcome
+        <Typography
+          variant="h1"
+          component="span"
+          color="primary"
+          sx={{
+            fontFamily: 'Pacifico,cursive',
+            fontSize: "3.5rem"
+          }}>Reci</Typography>Please
       </Typography>
 
       <br />
