@@ -106,7 +106,7 @@ I am grateful to Spoonacular for granting me temporary permission to store API d
 
 ## Additional Information
 
-- This Repo is just the for frontend of my web app. The backend can be found [here](https://github.com/tylerob65/ReciPlease-Backend).
+- This Repo is just for the frontend of my web app. The backend can be found [here](https://github.com/tylerob65/ReciPlease-Backend).
 
 - [ChatGPT](https://openai.com/) was used to help organize content of this README.
 
