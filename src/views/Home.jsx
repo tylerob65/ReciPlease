@@ -27,7 +27,7 @@ export default function Home() {
     setMostLikesPage(value);
   };
 
-  const handleTopUsersPageChange = async (event,value) => {
+  const handleTopUsersPageChange = async (event, value) => {
     getTopUsers(value)
     setTopUserPage(value)
   }
@@ -50,7 +50,7 @@ export default function Home() {
     setMaxPageCountTopUsers(data.data.max_pages)
   }
 
-  useEffect(() => { getRecipes(1);getTopUsers(1) }, [])
+  useEffect(() => { getRecipes(1); getTopUsers(1) }, [])
 
   return (
     <Container sx={{ textAlign: "center" }}>
@@ -68,7 +68,7 @@ export default function Home() {
       </Typography>
 
       <br />
-      
+
       <HomeCarousel />
       <br /><br />
 
@@ -103,7 +103,7 @@ export default function Home() {
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   <Typography>{recipeInfo.like_count}</Typography>
-                  </TableCell>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -124,14 +124,14 @@ export default function Home() {
             <TableRow>
               <TableCell>
                 <Typography sx={{ textAlign: "center" }}><b>User</b></Typography>
-                </TableCell>
+              </TableCell>
               <TableCell sx={{ textAlign: "center" }}>
                 <Typography><b>Recipe Count</b></Typography>
-                </TableCell>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {topUsers.map((topUserInfo,i) => (
+            {topUsers.map((topUserInfo, i) => (
               <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell sx={{ textAlign: "center" }}>
                   <Link to={"/profile/" + topUserInfo.user_id}>
@@ -142,7 +142,7 @@ export default function Home() {
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   <Typography>{topUserInfo.recipe_count}</Typography>
-                  </TableCell>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
